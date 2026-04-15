@@ -2,23 +2,19 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSystemClock } from '@/hooks/useSystemClock'
+import { useInfection } from '@/context/InfectionContext'
 import MobileMenu from './MobileMenu'
 import { cn } from '@/utils/cn'
-
-const NAV = [
-  { to: '/', label: 'Source', code: '01' },
-  { to: '/archive', label: 'Archive', code: '02' },
-  { to: '/watch', label: 'Watch', code: '03' },
-  { to: '/lore/ledger', label: 'Ledger', code: '04', accent: true },
-  { to: '/lore', label: 'Lore', code: '05' },
-  { to: '/report', label: 'Report', code: '06' },
-]
+import { resolveSignalAction, resolveSignalNav } from '@/utils/navSignals'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const { label } = useSystemClock()
+  const { label, now } = useSystemClock()
+  const { level } = useInfection()
   const location = useLocation()
+  const navItems = resolveSignalNav(level, now.getUTCSeconds())
+  const actionLabel = resolveSignalAction(level, now.getUTCSeconds())
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -50,7 +46,7 @@ export default function Navbar() {
             <span className="flex flex-col leading-none">
               <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest-2 text-rust-bright">
                 <span className="size-1.5 bg-rust-bright animate-pulse-soft" />
-                signal active
+                {level >= 3 ? 'witness identified' : level >= 2 ? 'signal unstable' : 'signal active'}
               </span>
               <span className="mono-label-sm mt-1 text-ash-400 hidden md:block">
                 archive · cell 07 · cycle ii
@@ -59,7 +55,7 @@ export default function Navbar() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8 xl:gap-10">
-            {NAV.map((item) => (
+            {navItems.map((item) => (
               <NavLink
                 key={item.label}
                 to={item.to}
@@ -78,7 +74,7 @@ export default function Navbar() {
                 {({ isActive }) => (
                   <>
                     <span className="text-ash-500 text-[9px]">{item.code}</span>
-                    <span className="link-underline">{item.label}</span>
+                    <span className="link-underline">{item.display}</span>
                     {isActive && (
                       <motion.span
                         layoutId="nav-dot"
@@ -97,8 +93,8 @@ export default function Navbar() {
               to="/report"
               className="group relative inline-flex items-center gap-2 px-4 py-2 border border-white/[0.08] hover:border-rust/60 transition-colors font-mono text-[10px] uppercase tracking-widest-2 text-bone"
             >
-              <span className="h-1 w-1 rounded-full bg-rust-bright animate-pulse-soft" />
-              Signal
+              <span className="h-1 w-1 bg-rust-bright animate-pulse-soft" />
+              {actionLabel}
             </Link>
           </div>
 
@@ -117,7 +113,7 @@ export default function Navbar() {
       </motion.header>
 
       <AnimatePresence>
-        {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} items={NAV} />}
+        {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} items={navItems} />}
       </AnimatePresence>
     </>
   )

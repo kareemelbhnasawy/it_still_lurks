@@ -89,11 +89,15 @@ export default function ContentDetail() {
           <div className="absolute inset-0 flex items-center justify-center">
             <button
               type="button"
-              className="group relative size-24 inline-flex items-center justify-center rounded-full border border-white/[0.2] backdrop-blur-sm bg-void/30 hover:border-rust/60 transition-colors"
-              aria-label={`Play ${item.title}`}
+              className="group relative inline-flex min-w-[172px] items-center justify-center border border-white/[0.2] backdrop-blur-sm bg-void/35 px-7 py-5 hover:border-rust/60 transition-colors"
+              aria-label={`Open ${item.title}`}
             >
-              <span className="font-mono text-[11px] uppercase tracking-widest-2 text-bone">play</span>
-              <span className="absolute inset-0 rounded-full border border-white/[0.08] animate-pulse-soft" />
+              <span className="absolute left-3 top-3 h-3 w-3 border-l border-t border-white/25" />
+              <span className="absolute right-3 top-3 h-3 w-3 border-r border-t border-white/25" />
+              <span className="absolute left-3 bottom-3 h-3 w-3 border-l border-b border-white/25" />
+              <span className="absolute right-3 bottom-3 h-3 w-3 border-r border-b border-white/25" />
+              <span className="font-mono text-[11px] uppercase tracking-widest-2 text-bone">open recording</span>
+              <span className="absolute inset-x-5 top-1/2 h-px bg-rust-bright/70 animate-pulse-soft" />
             </button>
           </div>
           <div className="absolute inset-0 vignette" />

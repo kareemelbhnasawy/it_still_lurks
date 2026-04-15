@@ -27,26 +27,32 @@ export default function ReportForm() {
       <fieldset className="flex flex-col gap-10">
         <div>
           <legend className="mono-label mb-4 block">◼ type of transmission</legend>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {TYPES.map((t) => (
+          <div className="border border-white/[0.08] bg-white/[0.012] divide-y divide-white/[0.06]">
+            {TYPES.map((t, index) => (
               <button
                 type="button"
                 key={t.id}
                 onClick={() => setType(t.id)}
                 aria-pressed={type === t.id}
-                className={`group relative flex items-center justify-between p-4 border transition-colors ${
+                className={`group relative flex w-full items-center justify-between px-4 py-4 text-left transition-colors ${
                   type === t.id
-                    ? 'border-bone/50 bg-white/[0.03] text-bone'
-                    : 'border-white/[0.08] text-ash-300 hover:text-bone hover:border-white/[0.18]'
+                    ? 'bg-white/[0.03] text-bone'
+                    : 'text-ash-300 hover:text-bone hover:bg-white/[0.02]'
                 }`}
               >
-                <div className="flex items-center gap-3">
-                  <span
-                    className={`size-2 ${type === t.id ? 'bg-rust-bright' : 'bg-ash-500 group-hover:bg-white'}`}
-                  />
-                  <span className="font-mono text-[11px] uppercase tracking-widest-2">{t.label}</span>
+                <div className="flex items-baseline gap-4">
+                  <span className="font-mono text-[10px] text-ash-500 tracking-widest-2 shrink-0">
+                    / {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <span className="font-mono text-[11px] uppercase tracking-widest-2 block">{t.label}</span>
+                    <span className="font-mono text-[9px] uppercase tracking-widest-2 text-ash-500 block mt-1">
+                      {t.id} · intake lane
+                    </span>
+                  </div>
                 </div>
-                <span className="mono-label-sm">{type === t.id ? 'selected' : 'choose'}</span>
+                <span className="mono-label-sm">{type === t.id ? 'active' : 'queue'}</span>
+                {type === t.id && <span className="absolute inset-y-0 left-0 w-px bg-rust-bright" />}
               </button>
             ))}
           </div>
@@ -100,17 +106,26 @@ export default function ReportForm() {
         </Field>
 
         <Field label="Upload artifact (optional)">
-          <label className="relative flex flex-col items-center justify-center gap-3 p-8 text-center border border-dashed border-white/[0.18] hover:border-rust/60 bg-white/[0.01] hover:bg-white/[0.025] cursor-pointer transition-colors">
-            <span className="relative inline-flex size-10 items-center justify-center border border-white/[0.15]">
-              <span className="absolute inset-1 border border-white/[0.08]" />
-              <span className="font-mono text-[11px] text-bone">↑</span>
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-widest-2 text-bone">
-              select file · drop here
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest-2 text-ash-400">
-              jpg · png · mp4 · wav · max 100mb
-            </span>
+          <label className="relative grid gap-5 border border-white/[0.08] bg-white/[0.012] px-5 py-6 hover:border-rust/60 hover:bg-white/[0.02] cursor-pointer transition-colors">
+            <div className="flex items-center justify-between gap-4 border-b border-white/[0.06] pb-4">
+              <span className="font-mono text-[11px] uppercase tracking-widest-2 text-bone">
+                artifact bay
+              </span>
+              <span className="mono-label-sm">slot open</span>
+            </div>
+            <div className="grid grid-cols-[auto_1fr] gap-4 items-start">
+              <span className="inline-flex h-10 w-10 items-center justify-center border border-white/[0.12] font-mono text-[11px] text-bone">
+                ↑
+              </span>
+              <div>
+                <span className="font-mono text-[11px] uppercase tracking-widest-2 text-bone block">
+                  attach recovered material
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-widest-2 text-ash-400 block mt-2">
+                  jpg · png · mp4 · wav · max 100mb
+                </span>
+              </div>
+            </div>
             <input type="file" className="sr-only" aria-label="Upload artifact" />
           </label>
         </Field>
@@ -165,7 +180,7 @@ export default function ReportForm() {
 }
 
 const INPUT =
-  'w-full bg-white/[0.015] border border-white/[0.08] focus:border-rust/50 px-4 py-3 text-sm text-bone placeholder:text-ash-500 outline-none transition-colors'
+  'w-full bg-transparent border-0 border-b border-white/[0.12] focus:border-rust/60 px-0 py-3 text-sm text-bone placeholder:text-ash-500 outline-none transition-colors'
 
 function Field({ label, required, children }) {
   return (

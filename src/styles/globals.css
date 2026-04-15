@@ -219,7 +219,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 46px;
+  width: 60px;
   animation-name: crawlerWalk;
   animation-timing-function: steps(64, end);
   animation-iteration-count: infinite;
@@ -227,8 +227,13 @@
   filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.6));
 }
 
+.crawler-shell {
+  position: relative;
+  width: 60px;
+}
+
 .crawler-glyph {
-  animation: crawlerBob 0.22s steps(2, end) infinite;
+  animation: crawlerBob 0.18s steps(2, end) infinite;
 }
 
 @keyframes crawlerWalk {
@@ -242,6 +247,44 @@
 @keyframes crawlerBob {
   0%, 100% { transform: translate3d(0, 0, 0); }
   50%      { transform: translate3d(0.5px, -1px, 0); }
+}
+
+.figurine-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 30% 16% at 22% 96%, rgba(0, 0, 0, 0.38) 0%, transparent 100%),
+    radial-gradient(ellipse 26% 12% at 78% 94%, rgba(0, 0, 0, 0.34) 0%, transparent 100%);
+  opacity: 0.8;
+}
+
+.watcher-presence {
+  animation: watcherBreath 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(0, 0, 0, 0.95));
+}
+
+@keyframes watcherBreath {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -1px, 0) scale(1.03); }
+}
+
+.figurine-peeker {
+  filter: drop-shadow(0 0 18px rgba(0, 0, 0, 0.75));
+  mix-blend-mode: multiply;
+}
+
+.figurine-hanger {
+  filter: drop-shadow(0 0 22px rgba(0, 0, 0, 0.85));
+}
+
+.figurine-follower {
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 0 18px rgba(0, 0, 0, 0.82));
+}
+
+.figurine-passer {
+  mix-blend-mode: multiply;
 }
 
 @keyframes marquee {
@@ -337,9 +380,10 @@
   50% { opacity: 0.9; }
 }
 
-/* whole-page tint applied via data-infection on <html> */
-html[data-infection="2"] body { filter: contrast(1.08) saturate(0.92); }
-html[data-infection="3"] body {
+/* Infection tint is applied to the scrolling content frame rather than <body>.
+   Applying filter to body breaks fixed-position UI on mobile browsers. */
+html[data-infection="2"] .infection-frame { filter: contrast(1.08) saturate(0.92); }
+html[data-infection="3"] .infection-frame {
   filter: contrast(1.2) saturate(0.72) hue-rotate(-4deg);
   animation: breachShiver 2.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
 }

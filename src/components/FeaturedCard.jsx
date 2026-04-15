@@ -33,9 +33,13 @@ export default function FeaturedCard({ item }) {
         </div>
 
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="relative inline-flex h-20 w-20 items-center justify-center rounded-full border border-white/[0.15] backdrop-blur-sm bg-void/30 group-hover:border-rust/60 transition-colors duration-500">
-            <span className="font-mono text-[10px] uppercase tracking-widest-2 text-bone">play</span>
-            <span className="absolute inset-0 rounded-full border border-white/[0.06] animate-pulse-soft" />
+          <span className="relative inline-flex min-w-[156px] items-center justify-center border border-white/[0.15] backdrop-blur-sm bg-void/35 px-6 py-4 group-hover:border-rust/60 transition-colors duration-500">
+            <span className="absolute left-2 top-2 h-3 w-3 border-l border-t border-white/25" />
+            <span className="absolute right-2 top-2 h-3 w-3 border-r border-t border-white/25" />
+            <span className="absolute left-2 bottom-2 h-3 w-3 border-l border-b border-white/25" />
+            <span className="absolute right-2 bottom-2 h-3 w-3 border-r border-b border-white/25" />
+            <span className="font-mono text-[10px] uppercase tracking-widest-2 text-bone">access file</span>
+            <span className="absolute inset-x-4 top-1/2 h-px bg-rust-bright/65 animate-pulse-soft" />
           </span>
         </div>
       </Link>

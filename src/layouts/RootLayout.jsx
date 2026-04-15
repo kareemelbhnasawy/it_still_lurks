@@ -24,13 +24,15 @@ export default function RootLayout() {
 
   return (
     <InfectionProvider>
-      <div className="relative min-h-dvh flex flex-col bg-void text-bone">
+      <div className="relative min-h-dvh bg-void text-bone">
         <AmbientBackground />
         <Navbar />
-        <main className="relative z-10 flex-1 pb-16 lg:pb-0">
-          <Outlet />
-        </main>
-        <Footer />
+        <div className="relative z-10 flex min-h-dvh flex-col infection-frame">
+          <main className="relative flex-1 pb-16 lg:pb-0">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
         <NoiseOverlay opacity={0.09} />
         <InfectionOverlay />
         <CreepyFigurines />
