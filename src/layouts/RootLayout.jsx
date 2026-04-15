@@ -9,6 +9,8 @@ import CorruptionFlash from '@/components/CorruptionFlash'
 import MobileTabBar from '@/components/MobileTabBar'
 import InfectionOverlay from '@/components/InfectionOverlay'
 import TacticalScanBar from '@/components/TacticalScanBar'
+import CreepyFigurines from '@/components/CreepyFigurines'
+import PurgeAftermath from '@/components/PurgeAftermath'
 import { InfectionProvider } from '@/context/InfectionContext'
 
 export default function RootLayout() {
@@ -31,7 +33,9 @@ export default function RootLayout() {
         <Footer />
         <NoiseOverlay opacity={0.09} />
         <InfectionOverlay />
+        <CreepyFigurines />
         <CorruptionFlash />
+        <PurgeAftermath />
         <TacticalScanBar />
         <MobileTabBar />
         <ScrollRestoration />

@@ -66,6 +66,11 @@ export default function VolatileRedaction({ reveal, width }) {
   }
 
   const onLeave = () => {
+    // Don't interrupt cycling — let the zalgo animation complete to revealed state.
+    // On touch devices, blur fires immediately after tap/focus, which would abort
+    // the cycle mid-way, leaving the text "staggered and unrevealed".
+    if (state === 'cycling') return
+
     stopTimers()
     setState('leaving')
     leaveRef.current = setTimeout(() => {
@@ -91,6 +96,7 @@ export default function VolatileRedaction({ reveal, width }) {
     <span
       className="volatile-red"
       data-state={state}
+      data-no-nav="true"
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onFocus={onEnter}

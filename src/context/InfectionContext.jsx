@@ -45,6 +45,11 @@ export function InfectionProvider({ children }) {
 
   // Click delay at level 1+: intercept link navigations, delay 50–400ms, re-dispatch.
   // Only hits anchor clicks — form submits, inputs, and regular buttons stay responsive.
+  //
+  // IMPORTANT: any element that carries data-no-nav="true" is skipped entirely —
+  // VolatileRedaction uses this so tapping a redacted word inside an ArchiveCard
+  // never re-dispatches a click on the parent anchor (which would navigate the
+  // route and scroll the page to top).
   useEffect(() => {
     if (level < 1 || reduced) return
 
@@ -52,7 +57,14 @@ export function InfectionProvider({ children }) {
       if (dispatchingRef.current) return
       if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
 
-      const link = e.target.closest && e.target.closest('a[href]')
+      const target = e.target
+      if (!target || !target.closest) return
+
+      // The click originated inside something that handles its own interaction.
+      // Let it run unmodified — the component's own handler will preventDefault.
+      if (target.closest('[data-no-nav="true"]')) return
+
+      const link = target.closest('a[href]')
       if (!link) return
 
       e.preventDefault()

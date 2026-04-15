@@ -210,6 +210,40 @@
   100% { transform: translate3d(400%, 0, 0); }
 }
 
+/* ------------------------------------------------------------------
+   Creepy figurine crawlers — slow, herky-jerky traversal at the edges
+   of the viewport. steps() easing keeps the motion unnatural.
+   ------------------------------------------------------------------ */
+
+.crawler-track {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 46px;
+  animation-name: crawlerWalk;
+  animation-timing-function: steps(64, end);
+  animation-iteration-count: infinite;
+  will-change: transform;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.6));
+}
+
+.crawler-glyph {
+  animation: crawlerBob 0.22s steps(2, end) infinite;
+}
+
+@keyframes crawlerWalk {
+  0%   { transform: translate3d(-80px, 0, 0); }
+  45%  { transform: translate3d(50vw, 0, 0); }
+  47%  { transform: translate3d(51vw, -2px, 0); }
+  49%  { transform: translate3d(51vw, 0, 0); }
+  100% { transform: translate3d(calc(100vw + 80px), 0, 0); }
+}
+
+@keyframes crawlerBob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0.5px, -1px, 0); }
+}
+
 @keyframes marquee {
   0%   { transform: translate3d(0, 0, 0); }
   100% { transform: translate3d(-100%, 0, 0); }

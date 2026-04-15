@@ -109,10 +109,11 @@ function CornerWatcher() {
           if (!alive) return
           setCorner((c) => (c + 1 + Math.floor(Math.random() * 3)) % 4)
           cycle()
-        }, 4000 + Math.random() * 5000)
-      }, 3500 + Math.random() * 2500)
+        }, 2500 + Math.random() * 3000)
+      }, 2800 + Math.random() * 1800)
     }
-    const first = setTimeout(cycle, 6000)
+    // Start faster - reduced from 6000ms to 1800ms
+    const first = setTimeout(cycle, 1800)
     return () => {
       alive = false
       clearTimeout(first)
@@ -140,14 +141,19 @@ function CornerWatcher() {
 
 function WatcherGlyph() {
   return (
-    <svg width="28" height="44" viewBox="0 0 28 44" fill="#050505">
-      {/* head */}
-      <ellipse cx="14" cy="9" rx="6.5" ry="7.5" />
+    <svg width="28" height="44" viewBox="0 0 28 44">
+      <defs>
+        <filter id="watcherGlow">
+          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#b22222" floodOpacity="0.8" />
+        </filter>
+      </defs>
+      {/* head - brighter fill for visibility */}
+      <ellipse cx="14" cy="9" rx="6.5" ry="7.5" fill="#1a1a1a" filter="url(#watcherGlow)" />
       {/* torso */}
-      <path d="M6 16 L22 16 L23 42 L5 42 Z" />
-      {/* two pin eyes */}
-      <circle cx="11" cy="8" r="0.9" fill="#b22222" />
-      <circle cx="17" cy="8" r="0.9" fill="#b22222" />
+      <path d="M6 16 L22 16 L23 42 L5 42 Z" fill="#1a1a1a" />
+      {/* two pin eyes - brighter */}
+      <circle cx="11" cy="8" r="1.2" fill="#ff4444" style={{ filter: 'drop-shadow(0 0 4px #ff4444)' }} />
+      <circle cx="17" cy="8" r="1.2" fill="#ff4444" style={{ filter: 'drop-shadow(0 0 4px #ff4444)' }} />
     </svg>
   )
 }
@@ -159,8 +165,8 @@ function WatcherGlyph() {
 function MouseStalker({ distance = 180 }) {
   const mx = useMotionValue(-300)
   const my = useMotionValue(-300)
-  const x = useSpring(mx, { damping: 28, stiffness: 60, mass: 2.2 })
-  const y = useSpring(my, { damping: 28, stiffness: 60, mass: 2.2 })
+  const x = useSpring(mx, { damping: 22, stiffness: 120, mass: 0.8 })
+  const y = useSpring(my, { damping: 22, stiffness: 120, mass: 0.8 })
 
   useEffect(() => {
     const onMove = (e) => {
@@ -185,7 +191,7 @@ function MouseStalker({ distance = 180 }) {
 
 function StalkerGlyph() {
   return (
-    <svg width="36" height="56" viewBox="0 0 36 56" style={{ opacity: 0.55 }}>
+    <svg width="36" height="56" viewBox="0 0 36 56" style={{ opacity: 0.8 }}>
       <defs>
         <filter id="stalkerBlur">
           <feGaussianBlur stdDeviation="0.6" />
