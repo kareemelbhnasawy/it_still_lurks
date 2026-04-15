@@ -290,3 +290,23 @@ export function getRelatedEpisodes(slug, count = 3) {
 export function getArchiveById(id) {
   return ARCHIVE.find((a) => a.id === id) || null
 }
+
+export function getRelatedArchive(id, count = 3) {
+  const current = getArchiveById(id)
+  if (!current) return []
+
+  const score = (candidate) => {
+    let total = 0
+    if (candidate.region === current.region) total += 4
+    if (candidate.category === current.category) total += 3
+    if (candidate.status === current.status) total += 1
+    total += candidate.tags.filter((tag) => current.tags.includes(tag)).length * 2
+    return total
+  }
+
+  return ARCHIVE.filter((entry) => entry.id !== id)
+    .map((entry) => ({ entry, score: score(entry) }))
+    .sort((a, b) => b.score - a.score || b.entry.timestamp.localeCompare(a.entry.timestamp))
+    .slice(0, count)
+    .map(({ entry }) => entry)
+}

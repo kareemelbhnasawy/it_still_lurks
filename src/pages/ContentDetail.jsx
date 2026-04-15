@@ -243,7 +243,7 @@ function LinkedRow({ code, label }) {
         <span className="text-bone text-sm truncate">{label}</span>
       </div>
       <Link
-        to="/archive"
+        to={`/archive/${code.toLowerCase()}`}
         className="font-mono text-[10px] uppercase tracking-widest-2 text-ash-400 hover:text-rust-bright transition-colors shrink-0"
       >
         open

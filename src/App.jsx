@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RootLayout from '@/layouts/RootLayout'
 import Home from '@/pages/Home'
 import Archive from '@/pages/Archive'
+import ArchiveDetail from '@/pages/ArchiveDetail'
 import Watch from '@/pages/Watch'
 import ContentDetail from '@/pages/ContentDetail'
 import Lore from '@/pages/Lore'
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/archive', element: <Archive /> },
-      { path: '/archive/:id', element: <Archive /> },
+      { path: '/archive/:id', element: <ArchiveDetail /> },
       { path: '/watch', element: <Watch /> },
       { path: '/watch/:slug', element: <ContentDetail /> },
       { path: '/lore', element: <Lore /> },
