@@ -1,0 +1,520 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --void: 7 7 7;
+    --bone: 232 230 225;
+    --rust: 160 29 29;
+    --hairline: 255 255 255 / 0.06;
+    --hairline-strong: 255 255 255 / 0.12;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'ss02', 'ss03';
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background: #070707;
+    color: #e2e2e2;
+    overflow-x: hidden;
+    font-weight: 300;
+  }
+
+  ::selection {
+    background: #a01d1d;
+    color: #e8e6e1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #070707;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border-right: 1px solid #2a2a2a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a2a2a;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Newsreader', 'Fraunces', serif;
+    font-weight: 700;
+    font-variation-settings: 'opsz' 72;
+    letter-spacing: -0.02em;
+  }
+
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .hairline {
+    @apply border border-white/[0.06];
+  }
+  .hairline-b {
+    @apply border-b border-white/[0.06];
+  }
+  .hairline-t {
+    @apply border-t border-white/[0.06];
+  }
+
+  .mono-label {
+    @apply font-mono text-[10px] uppercase tracking-widest-2 text-ash-300;
+  }
+
+  .mono-label-sm {
+    @apply font-mono text-[9px] uppercase tracking-widest-3 text-ash-400;
+  }
+
+  .system-chip {
+    @apply inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest-2 text-ash-300 px-2.5 py-1 border border-white/[0.08] bg-white/[0.015];
+  }
+
+  /* Solid inline "redaction block" — used to suppress a single word, matching the Stitch motif. */
+  .redaction-block {
+    display: inline-block;
+    background: #e2e2e2;
+    color: #000;
+    padding: 0 6px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .redaction-block-danger {
+    display: inline-block;
+    background: #b22222;
+    color: #690007;
+    padding: 0 6px;
+    font-weight: 700;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #e8e6e1 0%,
+      #e8e6e1 40%,
+      #8a8a8a 50%,
+      #e8e6e1 60%,
+      #e8e6e1 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 8s ease-in-out infinite;
+  }
+
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .redacted {
+    position: relative;
+    color: transparent;
+    background: #1a1a1a;
+    padding: 0 2px;
+    user-select: none;
+    border-radius: 1px;
+    text-shadow: none;
+  }
+  .redacted::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #1a1a1a 0%, #262626 40%, #1a1a1a 100%);
+  }
+
+  .glitch-hover:hover {
+    animation: glitchShift 0.24s steps(3) 1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+  }
+
+  .vignette {
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .bg-scanlines {
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
+}
+
+@keyframes glitchShift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes tacticalScan {
+  0%   { transform: translate3d(-100%, 0, 0); }
+  100% { transform: translate3d(400%, 0, 0); }
+}
+
+@keyframes marquee {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* ------------------------------------------------------------------
+   Infection system — the site "waking up" across 4 levels.
+   Level 0: pristine · Level 1: noticed you · Level 2: hostile · Level 3: full breach
+   ------------------------------------------------------------------ */
+
+/* vignette: darker and tighter at each level */
+.infection-vignette {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+.infection-vignette[data-level="1"] {
+  background: radial-gradient(ellipse at center, transparent 48%, rgba(0, 0, 0, 0.62) 100%);
+}
+.infection-vignette[data-level="2"] {
+  background: radial-gradient(ellipse at center, transparent 36%, rgba(0, 0, 0, 0.78) 100%);
+}
+.infection-vignette[data-level="3"] {
+  background: radial-gradient(ellipse 60% 45% at center, transparent 18%, rgba(10, 0, 0, 0.92) 100%);
+}
+
+/* scanlines: subtle at 0, intense at 2+, desynchronizing roll at 2+ */
+.infection-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.018) 0px,
+    rgba(255, 255, 255, 0.018) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.55;
+}
+.infection-scanlines[data-level="1"] { opacity: 0.7; }
+.infection-scanlines[data-level="2"],
+.infection-scanlines[data-level="3"] {
+  opacity: 0.95;
+  animation: scanlineDesync 4.2s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+.infection-scanlines[data-level="3"] {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@keyframes scanlineDesync {
+  0%, 80%, 100% { transform: translate3d(0, 0, 0); opacity: 0.95; }
+  82% { transform: translate3d(0, -6px, 0); opacity: 0.4; }
+  84% { transform: translate3d(0, 4px, 0); opacity: 0.95; }
+  86% { transform: translate3d(0, 0, 0); opacity: 0.95; }
+}
+
+/* horizontal "tear" bar that rolls down the screen at level 2+ */
+.infection-tear {
+  background: linear-gradient(
+    180deg,
+    transparent 48%,
+    rgba(160, 29, 29, 0.18) 49%,
+    rgba(58, 69, 80, 0.22) 50%,
+    rgba(160, 29, 29, 0.12) 51%,
+    transparent 52%
+  );
+  background-size: 100% 200vh;
+  background-position: 0 -200vh;
+  animation: tearRoll 11s linear infinite;
+  mix-blend-mode: screen;
+}
+@keyframes tearRoll {
+  0% { background-position: 0 -200vh; opacity: 0; }
+  6% { opacity: 1; }
+  94% { opacity: 1; }
+  100% { background-position: 0 200vh; opacity: 0; }
+}
+
+/* level-3 red wash, faint pulsing saturation shift */
+.infection-breach {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(122, 26, 26, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 70%, rgba(160, 29, 29, 0.12) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  animation: breachPulse 6s ease-in-out infinite;
+}
+@keyframes breachPulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+}
+
+/* whole-page tint applied via data-infection on <html> */
+html[data-infection="2"] body { filter: contrast(1.08) saturate(0.92); }
+html[data-infection="3"] body {
+  filter: contrast(1.2) saturate(0.72) hue-rotate(-4deg);
+  animation: breachShiver 2.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+@keyframes breachShiver {
+  0%, 85%, 100% { transform: translate3d(0, 0, 0); }
+  87% { transform: translate3d(-1px, 0.5px, 0); }
+  89% { transform: translate3d(1px, -0.5px, 0); }
+  91% { transform: translate3d(0, 0, 0); }
+}
+
+/* ------------------------------------------------------------------
+   Hostile typography — TextGlitch uses data-text + ::before/::after
+   for CSS-only chromatic aberration.
+   ------------------------------------------------------------------ */
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.glitch-text[data-hostile="true"]::before,
+.glitch-text[data-hostile="true"]::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+  will-change: transform, opacity;
+}
+.glitch-text[data-hostile="true"]::before {
+  color: #a01d1d;
+  transform: translate3d(-2px, 0, 0);
+  mix-blend-mode: screen;
+}
+.glitch-text[data-hostile="true"]::after {
+  color: #3a8090;
+  transform: translate3d(2px, 0, 0);
+  mix-blend-mode: screen;
+}
+.glitch-text[data-hostile="true"]:hover::before {
+  opacity: 0.88;
+  animation: glitchJitterL 0.18s steps(3) infinite;
+}
+.glitch-text[data-hostile="true"]:hover::after {
+  opacity: 0.88;
+  animation: glitchJitterR 0.18s steps(3) infinite;
+}
+.glitch-text[data-hostile="true"]:hover {
+  animation: glitchCoreJitter 0.12s steps(4) infinite;
+  font-variation-settings: 'wght' var(--glitch-wght, 500);
+}
+@keyframes glitchJitterL {
+  0% { transform: translate3d(-2px, 0, 0); }
+  33% { transform: translate3d(-4px, 1px, 0); }
+  66% { transform: translate3d(-1px, -1px, 0); }
+  100% { transform: translate3d(-3px, 0, 0); }
+}
+@keyframes glitchJitterR {
+  0% { transform: translate3d(2px, 0, 0); }
+  33% { transform: translate3d(4px, -1px, 0); }
+  66% { transform: translate3d(1px, 1px, 0); }
+  100% { transform: translate3d(3px, 0, 0); }
+}
+@keyframes glitchCoreJitter {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-1px, 0, 0); }
+  50% { transform: translate3d(1px, 1px, 0); }
+  75% { transform: translate3d(0, -1px, 0); }
+}
+
+/* level-3 makes ALL .glitch-text nodes flicker even without hover */
+html[data-infection="3"] .glitch-text {
+  animation: glitchAmbient 7s steps(12) infinite;
+}
+@keyframes glitchAmbient {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.75; }
+  94% { opacity: 1; }
+  95% { opacity: 0.55; }
+  96% { opacity: 1; }
+}
+
+/* ------------------------------------------------------------------
+   AnomalyImage — contrast blowout + hidden layer peek on hover.
+   ------------------------------------------------------------------ */
+
+.anomaly-img { position: relative; overflow: hidden; isolation: isolate; }
+.anomaly-img .anomaly-base {
+  position: absolute;
+  inset: 0;
+  transition: filter 220ms ease-out, transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: filter, transform;
+}
+.anomaly-img .anomaly-hidden {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.anomaly-img:hover .anomaly-base {
+  animation: anomalyFlash 460ms steps(4) 1;
+  transform: scale(1.02);
+}
+.anomaly-img:hover .anomaly-hidden {
+  animation: anomalyPeek 460ms ease 1;
+}
+@keyframes anomalyFlash {
+  0% { filter: contrast(1) saturate(1) invert(0) brightness(1); }
+  12% { filter: contrast(3.4) saturate(0) invert(1) brightness(1.4); }
+  24% { filter: contrast(0.6) saturate(2) invert(0) brightness(0.8); }
+  36% { filter: contrast(2) saturate(0) invert(1) brightness(1.2); }
+  100% { filter: none; }
+}
+@keyframes anomalyPeek {
+  0%, 100% { opacity: 0; }
+  14%, 22% { opacity: 0.75; }
+  34% { opacity: 0.25; }
+  48% { opacity: 0.6; }
+}
+
+/* ------------------------------------------------------------------
+   VolatileRedaction — hover shake + zalgo cycle, lingering red shadow
+   ------------------------------------------------------------------ */
+
+.volatile-red {
+  display: inline-block;
+  position: relative;
+  padding: 0 4px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 400;
+  line-height: inherit;
+  vertical-align: baseline;
+  cursor: help;
+  transition: color 160ms, text-shadow 700ms ease-out, background-color 240ms;
+  will-change: transform, color;
+}
+.volatile-red[data-state="idle"] {
+  color: transparent;
+  background: #141414;
+  user-select: none;
+}
+.volatile-red[data-state="idle"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    #141414 0 4px,
+    #1c1c1c 4px 8px
+  );
+}
+.volatile-red[data-state="cycling"] {
+  color: #e8e6e1;
+  background: transparent;
+  animation: volatileShake 0.09s steps(3) infinite;
+  text-shadow: 0 0 6px rgba(160, 29, 29, 0.5);
+}
+.volatile-red[data-state="revealed"] {
+  color: #a01d1d;
+  background: transparent;
+  text-shadow: 0 0 4px rgba(160, 29, 29, 0.6);
+}
+.volatile-red[data-state="leaving"] {
+  color: transparent;
+  background: #141414;
+  text-shadow: 0 0 12px rgba(160, 29, 29, 0.8);
+  user-select: none;
+}
+@keyframes volatileShake {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-2px, 1px, 0); }
+  50% { transform: translate3d(2px, -1px, 0); }
+  75% { transform: translate3d(-1px, -1px, 0); }
+  100% { transform: translate3d(1px, 1px, 0); }
+}
+
+/* ------------------------------------------------------------------
+   FalseHopeButton — broken-out glitch state
+   ------------------------------------------------------------------ */
+
+.false-hope[data-broken="true"] {
+  animation:
+    falseHopeBreak 0.7s cubic-bezier(0.6, 0, 0.4, 1) 1,
+    falseHopeLinger 0.18s steps(3) 0.7s infinite;
+  color: #a01d1d;
+  border-color: #a01d1d !important;
+  background: rgba(74, 15, 15, 0.18) !important;
+}
+@keyframes falseHopeBreak {
+  0% { transform: translate3d(0, 0, 0) skewX(0); filter: none; }
+  12% { transform: translate3d(-14px, 6px, 0) skewX(-2deg); filter: hue-rotate(30deg) contrast(1.4); }
+  22% { transform: translate3d(12px, -4px, 0) skewX(1.5deg); filter: contrast(2); }
+  34% { transform: translate3d(-8px, 8px, 0) skewX(-1deg); }
+  46% { transform: translate3d(6px, -2px, 0) skewX(0.8deg); }
+  60% { transform: translate3d(-3px, 3px, 0) skewX(-0.4deg); }
+  80% { transform: translate3d(2px, -1px, 0) skewX(0.2deg); }
+  100% { transform: translate3d(0, 0, 0) skewX(0); filter: none; }
+}
+@keyframes falseHopeLinger {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-1px, 0.5px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

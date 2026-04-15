@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IT STILL LURKS | SIGNAL ACTIVE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;0,800;1,400&amp;family=Space+Grotesk:wght@400;700&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>body {
+    background-color: #000;
+    color: #E2E2E2;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden
+    }
+.scanline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.15
+    }
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB8XIhhqqaD30593WL4N-T6WY4L352eYu_huPP1ITcb8cQOIE3jFFfiIceDx_K0kNxOUggIRaMWfMeUWiZKfM1FKbJ9UDIweoTCaNeGeE5sGW6L9wzdFni8upFNv2rEyl7U_pQn0tjiRD-QJW3rfJ4Q3MoM-IbDOJuYJP4UAtIHkwbUMJC-CTzA3WyDPzWNAojCciD4QgAmY8SSz1FdEzHZrV6qqr9E8pW_HF42AEke41OEG21QaGlSFLA-vTa-jZbkh23hoYUa7g);
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 101
+    }
+.redaction-block {
+    background-color: #E2E2E2;
+    color: #000;
+    padding: 0 4px
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#313030",
+                      "inverse-primary": "#b52424",
+                      "surface-container-highest": "#353535",
+                      "surface-container-low": "#1b1b1b",
+                      "on-secondary-fixed-variant": "#474747",
+                      "inverse-surface": "#e2e2e2",
+                      "on-surface": "#e2e2e2",
+                      "surface": "#131313",
+                      "on-primary": "#690007",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "on-background": "#e2e2e2",
+                      "on-tertiary-fixed-variant": "#474646",
+                      "inverse-on-surface": "#303030",
+                      "surface-bright": "#393939",
+                      "secondary": "#c8c6c6",
+                      "outline": "#aa8986",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#b22222",
+                      "on-secondary-container": "#b9b8b8",
+                      "tertiary-container": "#5d5c5c",
+                      "on-surface-variant": "#e2beba",
+                      "surface-tint": "#ffb4ac",
+                      "primary": "#ffb4ac",
+                      "surface-container-high": "#2a2a2a",
+                      "primary-fixed": "#ffdad6",
+                      "error-container": "#93000a",
+                      "on-secondary": "#303030",
+                      "on-error": "#690005",
+                      "outline-variant": "#5a403e",
+                      "on-tertiary-container": "#d7d5d4",
+                      "on-primary-fixed": "#410003",
+                      "surface-container": "#1f1f1f",
+                      "surface-container-lowest": "#0e0e0e",
+                      "tertiary": "#c8c6c5",
+                      "primary-fixed-dim": "#ffb4ac",
+                      "tertiary-fixed": "#e5e2e1",
+                      "surface-dim": "#131313",
+                      "secondary-fixed-dim": "#c8c6c6",
+                      "background": "#131313",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "on-primary-fixed-variant": "#92030f",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "secondary-fixed": "#e4e2e2",
+                      "surface-variant": "#353535",
+                      "on-primary-container": "#ffc8c2",
+                      "secondary-container": "#494949"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "0px"
+              },
+              "fontFamily": {
+                      "headline": ["Newsreader", "serif"],
+                      "body": ["Inter", "sans-serif"],
+                      "label": ["Space Mono", "monospace"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background selection:bg-primary-container selection:text-on-primary">
+<div class="scanline-overlay"></div>
+<div class="grain-overlay"></div>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-4 h-14 bg-black/90 backdrop-blur-sm docked full-width top-0 z-50 border-b border-[#4A4A4A] fixed">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#B22222]" data-icon="menu">menu</span>
+<h1 class="text-xl font-bold tracking-tighter text-[#B22222] uppercase">SIGNAL ACTIVE</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 font-label text-xs tracking-widest">
+<a class="text-[#B22222] hover:text-white transition-colors" href="#">SOURCE</a>
+<a class="text-[#E2E2E2] hover:text-white transition-colors" href="#">ARCHIVE</a>
+<a class="text-[#E2E2E2] hover:text-white transition-colors" href="#">REPORT</a>
+</nav>
+<span class="material-symbols-outlined text-[#B22222]" data-icon="sensors">sensors</span>
+</div>
+</header>
+<main class="pt-14 pb-16">
+<!-- Hero Section -->
+<section class="relative min-h-[795px] flex items-center px-6 md:px-20 overflow-hidden border-b border-outline-variant/20">
+<div class="absolute inset-0 z-0">
+<img alt="Cinematic dark liminal space" class="w-full h-full object-cover grayscale brightness-50 contrast-125" data-alt="high-contrast cinematic view of a long dark concrete corridor with a single flickering red light at the far end" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkQhkb-MU-WCbX3eW2s4Bh49cYpHs7mcjuuHAo0f8c6M7AUSW-pDayom_RgL6UWqST086vRSqL8TppNwk88kezaa4hAAvlz2QaxzaE-avVKIF9ctg5PwB7f4Znv-03SDtaHOvHRJHelWlU8hzJYqcaEktEYgqIW6-uDIj15aeWA_QWP2npRxismEHzYcpvmU9MBwPRg8IJ8u__Yo0lp_ooj0JEnbrwc3jMNLvA68xdzfYJtVnC8wzsp0VMqLYFjyQDwqgHfF2SGQ"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-4xl">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-2 h-2 bg-primary-container animate-pulse"></div>
+<span class="font-label text-xs tracking-[0.3em] text-primary">STATUS: LURKING</span>
+</div>
+<h2 class="font-headline text-6xl md:text-9xl font-extrabold italic tracking-tighter leading-none mb-8">
+                    IT STILL <br/> <span class="text-primary-container">LURKS</span>
+</h2>
+<p class="font-body text-on-surface/70 max-w-lg mb-12 border-l-2 border-primary-container pl-6 py-2">
+                    Recovered data suggests the architectural anomalies are not static. The descent is permanent. The archive is waiting for your authorization.
+                </p>
+<div class="flex flex-col md:flex-row gap-4">
+<button class="bg-primary-container text-on-primary font-label px-10 py-4 hover:brightness-110 active:opacity-80 transition-all flex items-center justify-center gap-3">
+                        INITIALIZE DESCENT
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="bg-on-surface text-background font-label px-10 py-4 hover:bg-surface-bright hover:text-white transition-all flex items-center justify-center gap-3">
+                        ENTER ARCHIVE
+                    </button>
+</div>
+</div>
+<div class="absolute bottom-10 right-10 hidden lg:block">
+<div class="font-label text-[10px] text-on-surface/40 leading-tight text-right uppercase tracking-widest">
+                    Coordinate Sync: 40.7128° N, 74.0060° W<br/>
+                    Encryption Level: CLASSIFIED_09<br/>
+                    Vessel Integrity: 14.4%
+                </div>
+</div>
+</section>
+<!-- Transmissions (Bento Grid) -->
+<section class="py-24 px-6 md:px-20 bg-surface">
+<div class="flex justify-between items-end mb-12">
+<div>
+<span class="font-label text-xs text-primary-container block mb-2">FEED_ID: 9982-X</span>
+<h3 class="font-headline text-4xl font-bold tracking-tight">LATEST TRANSMISSIONS</h3>
+</div>
+<div class="font-label text-xs opacity-50 underline decoration-primary-container">VIEW_ALL_LOGS</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+<!-- Large Feature -->
+<div class="md:col-span-2 relative group overflow-hidden bg-surface-container-low border border-outline-variant/10">
+<img alt="Surveillance Feed 01" class="w-full h-full object-cover aspect-video grayscale opacity-60 group-hover:opacity-80 transition-opacity duration-700" data-alt="grainy low-light surveillance still of an empty underground parking garage with heavy shadows and a red emergency light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6ugQP_iJCsHWT7iYBgY-FV_zXfHx1-7ol_vJVq1IfPJYQzEK-oQ2UQTjWfR_VqmkR1UiuZWnvXElTwN1s7HliQgGQpE-ui935hEfc0okVoJi8kr1j5-fyE5pC0ZMqmw_kvzQ78tCJjEBRl0sZD-If55aKLIxiJLSk-gsqPm82qRxe3WOiQmmrKr3rg10AIC740kEJaJCXMOleeWI5kBag_Ly-qQPODfU2bugy1xVRZmKN9tyUT3tntZ0e-FES0Bql1rspZfRegQ"/>
+<div class="absolute top-4 right-4 bg-on-surface text-background px-2 py-1 font-label text-[10px] font-bold">23:14:02</div>
+<div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black to-transparent">
+<span class="font-label text-xs text-primary mb-2 block">ENTITY_SIGHTING</span>
+<h4 class="font-headline text-2xl font-bold">The Concrete Hollows</h4>
+<p class="font-body text-sm text-on-surface/60 mt-2 max-w-md">Visual confirmation of movement in Sector 4. Data corrupt. Humanoid silhouette detected but not confirmed.</p>
+</div>
+</div>
+<!-- Side Card 1 -->
+<div class="relative group overflow-hidden bg-surface-container-high border border-outline-variant/10 p-6 flex flex-col justify-between aspect-square md:aspect-auto">
+<div class="font-label text-[10px] opacity-40">FRAGMENT_012</div>
+<div>
+<h4 class="font-headline text-xl font-bold mb-4">"The walls began to breathe."</h4>
+<div class="w-full h-px bg-primary-container mb-4"></div>
+<p class="font-body text-xs text-on-surface/50 italic leading-relaxed">
+                            Report by Agent K. Subject encountered non-Euclidean geometry in the boiler room. Audio recording consists only of low-frequency static.
+                        </p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-primary-container" data-icon="lock_open">lock_open</span>
+</div>
+</div>
+<!-- Bottom Row 1 -->
+<div class="relative group overflow-hidden bg-surface-container-low border border-outline-variant/10 aspect-square">
+<img alt="Surveillance Feed 02" class="w-full h-full object-cover grayscale opacity-40 group-hover:scale-105 transition-transform duration-1000" data-alt="blurry black and white close up of an antique rotary phone in a dark room, dimly lit by a flashlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqmDTFH2-AzmvvD3RIlp2ZKYEYSuDLcUQoKdNxjYemVXi5rWrwWrZf7tequRzYaRdVUj09crckX_imMdMwsw92DxPv3bMWNUpu0htsH0lWbjWwEvYS90ZGUfiSIgnsek2y4fprjE5Qqv2mYMVg7nbnQl7iK0YiPCwOAI__4yUiKev52uu8FDdzDZWJHOmEoRyE20xAFSMgIO7mkP6rhe25-XrEUDo2XcExE_z-vqdeAYxrDNk8ckaSL1gL8HizUgHlZbug6HfOkA"/>
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
+<span class="font-label text-[10px] text-white">RECOVERED_MEDIA</span>
+</div>
+</div>
+<!-- Bottom Row 2 -->
+<div class="relative group overflow-hidden bg-surface-container-low border border-outline-variant/10 aspect-square">
+<img alt="Surveillance Feed 03" class="w-full h-full object-cover grayscale opacity-40 group-hover:scale-105 transition-transform duration-1000" data-alt="monochrome thermal camera view of an empty office hallway, bright whites and deep blacks showing temperature anomalies" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy9WLSu2Ii86IVYdQEUfrYZkAW5ClOv4p89Uzv52ZRtE4EBuy0u-bqFoJR4FiiEGLYECz1CGmc-BABaiZjuHA7bCSWDMrz3hS0zMEGp7dRy35YWhOm67eiSpHFJculs1UEesZKbd-JC6DMibhrIT_1tAoOiVyjQRxKU46zkOV0lllRIA0UOxAlNaJnQQvJzytL2RhzMxgpmll14sfkdGeHNzyr7HQL1vea1z-koJSh9PDy9hFc8ClUMYTQ-dcrbI4seAnMrKwK0w"/>
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-black/40">
+<span class="font-label text-[10px] text-white">THERMAL_LOG</span>
+</div>
+</div>
+<!-- Status Card -->
+<div class="bg-primary-container text-on-primary p-8 flex flex-col justify-between border border-primary-container">
+<div>
+<div class="font-label text-xs uppercase font-bold tracking-tighter mb-6">SYSTEM ALERT</div>
+<h4 class="font-headline text-3xl font-black italic tracking-tighter leading-none mb-4">CRITICAL <br/>BREACH</h4>
+<div class="font-label text-[10px] leading-tight opacity-80">
+                            CONTAINMENT: FAILED<br/>
+                            PROTOCOL: EXTERMINATE<br/>
+                            TIME_REMAINING: 00:04:12
+                        </div>
+</div>
+<div class="pt-6 border-t border-on-primary/30 mt-4">
+<div class="flex justify-between font-label text-xs">
+<span>REDACTION</span>
+<span>[██████]</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Hidden Fragments Section -->
+<section class="py-32 flex flex-col items-center justify-center text-center bg-black">
+<div class="max-w-2xl px-6">
+<span class="font-label text-[10px] tracking-[0.5em] text-on-surface/20 mb-8 block uppercase">Subliminal Layer</span>
+<p class="font-headline text-3xl md:text-5xl text-on-surface/10 hover:text-on-surface/40 transition-colors duration-1000 cursor-default select-none mb-12">
+                    DON'T LOOK BACK. <br/> THE FOUNDATION IS <br/> HOLLOW.
+                </p>
+<div class="flex justify-center gap-12 opacity-5 animate-pulse">
+<span class="font-label text-[10px]">REDACTED</span>
+<span class="font-label text-[10px]">REDACTED</span>
+<span class="font-label text-[10px]">REDACTED</span>
+</div>
+</div>
+</section>
+<!-- System Status Footer Section -->
+<section class="border-t border-outline-variant/20 bg-surface-container-lowest py-16 px-6 md:px-20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="md:col-span-1">
+<h5 class="font-headline text-2xl font-bold text-primary-container mb-4">LURK_OS v4.1</h5>
+<p class="font-body text-xs text-on-surface/40 leading-relaxed">
+                        An autonomous forensic engine designed to track, catalog, and eventually neutralize ontological threats. Use at your own psychological risk.
+                    </p>
+</div>
+<div class="md:col-span-1">
+<h6 class="font-label text-xs font-bold mb-6 text-on-surface">DIRECTORIES</h6>
+<ul class="font-label text-[10px] space-y-3 text-on-surface/60">
+<li class="hover:text-primary transition-colors cursor-pointer">/ROOT/PERSONNEL</li>
+<li class="hover:text-primary transition-colors cursor-pointer">/ROOT/INCIDENT_REPORTS</li>
+<li class="hover:text-primary transition-colors cursor-pointer">/ROOT/GEOLOCATION</li>
+<li class="hover:text-primary transition-colors cursor-pointer">/ROOT/VOID_LOGS</li>
+</ul>
+</div>
+<div class="md:col-span-2 flex flex-col justify-between">
+<div class="flex gap-4 items-start">
+<div class="w-1 h-12 bg-primary-container"></div>
+<div>
+<span class="font-label text-[10px] text-primary-container">SYSTEM_LOG_PURGE_READY</span>
+<div class="flex mt-2 gap-2">
+<input class="bg-transparent border-b border-outline-variant text-xs font-label focus:outline-none focus:border-primary w-48 py-1 uppercase" placeholder="AUTH_KEY" type="text"/>
+<button class="bg-on-surface text-background font-label text-[10px] px-4 py-1">EXECUTE</button>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-end border-t border-outline-variant/10 pt-4">
+<div class="font-label text-[10px] text-on-surface/20 uppercase">
+                            © 1994-2024 DEPT. OF UNKNOWN PHENOMENA
+                        </div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-sm opacity-30" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined text-sm opacity-30" data-icon="lock">lock</span>
+<span class="material-symbols-outlined text-sm opacity-30" data-icon="wifi_off">wifi_off</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 bg-[#0E0E0E] border-t border-[#4A4A4A] md:hidden">
+<div class="flex flex-col items-center justify-center bg-[#B22222] text-[#000000] p-2 h-full flex-1">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-label text-[10px] font-bold uppercase mt-1">SOURCE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full flex-1 hover:bg-[#393939] transition-colors">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label text-[10px] font-bold uppercase mt-1">ARCHIVE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full flex-1 hover:bg-[#393939] transition-colors">
+<span class="material-symbols-outlined" data-icon="cell_tower">cell_tower</span>
+<span class="font-label text-[10px] font-bold uppercase mt-1">SIGNAL</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full flex-1 hover:bg-[#393939] transition-colors">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label text-[10px] font-bold uppercase mt-1">REPORT</span>
+</div>
+</nav>
+<!-- Tactical Scan Progress Bar -->
+<div class="fixed bottom-0 left-0 w-full h-[2px] bg-primary-container/20 z-[60] overflow-hidden">
+<div class="h-full bg-primary-container w-1/3 animate-[scan_4s_linear_infinite]"></div>
+</div>
+<style>
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(300%); }
+        }
+    </style>
+</body></html>

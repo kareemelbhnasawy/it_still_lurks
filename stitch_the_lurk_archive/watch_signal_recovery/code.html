@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@100..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#313030",
+                    "inverse-primary": "#b52424",
+                    "surface-container-highest": "#353535",
+                    "surface-container-low": "#1b1b1b",
+                    "on-secondary-fixed-variant": "#474747",
+                    "inverse-surface": "#e2e2e2",
+                    "on-surface": "#e2e2e2",
+                    "surface": "#131313",
+                    "on-primary": "#690007",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-background": "#e2e2e2",
+                    "on-tertiary-fixed-variant": "#474646",
+                    "inverse-on-surface": "#303030",
+                    "surface-bright": "#393939",
+                    "secondary": "#c8c6c6",
+                    "outline": "#aa8986",
+                    "on-error-container": "#ffdad6",
+                    "primary-container": "#b22222",
+                    "on-secondary-container": "#b9b8b8",
+                    "tertiary-container": "#5d5c5c",
+                    "on-surface-variant": "#e2beba",
+                    "surface-tint": "#ffb4ac",
+                    "primary": "#ffb4ac",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-fixed": "#ffdad6",
+                    "error-container": "#93000a",
+                    "on-secondary": "#303030",
+                    "on-error": "#690005",
+                    "outline-variant": "#5a403e",
+                    "on-tertiary-container": "#d7d5d4",
+                    "on-primary-fixed": "#410003",
+                    "surface-container": "#1f1f1f",
+                    "surface-container-lowest": "#0e0e0e",
+                    "tertiary": "#c8c6c5",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "tertiary-fixed": "#e5e2e1",
+                    "surface-dim": "#131313",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "background": "#131313",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "on-primary-fixed-variant": "#92030f",
+                    "on-tertiary-fixed": "#1c1b1b",
+                    "secondary-fixed": "#e4e2e2",
+                    "surface-variant": "#353535",
+                    "on-primary-container": "#ffc8c2",
+                    "secondary-container": "#494949"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader"],
+                    "body": ["Inter"],
+                    "label": ["Space Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(rgba(18, 18, 18, 0.03) 50%, transparent 50%),
+                radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0);
+            background-size: 100% 4px, 4px 4px;
+        }
+        .scanline-overlay {
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        .glitch-text {
+            text-shadow: 2px 0 #b22222, -2px 0 #4a4a4a;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #b22222; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface font-body selection:bg-primary-container selection:text-white">
+<!-- TopAppBar -->
+<header class="fixed top-0 z-50 flex justify-between items-center w-full px-4 h-14 bg-black/90 backdrop-blur-sm border-b border-[#4A4A4A]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#B22222]">menu</span>
+<h1 class="text-xl font-bold tracking-tighter text-[#B22222] uppercase font-headline">SIGNAL ACTIVE</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label text-xs tracking-widest text-[#E2E2E2] hidden md:block">ENCRYPTION: AES-256</span>
+<span class="material-symbols-outlined text-[#B22222]">sensors</span>
+</div>
+</header>
+<main class="pt-14 pb-16 md:pb-0">
+<!-- Surveillance Player Hero -->
+<section class="relative w-full aspect-video md:h-[618px] bg-black overflow-hidden group">
+<div class="absolute inset-0 z-10 scanline-overlay opacity-30"></div>
+<img alt="Surveillance Footage" class="w-full h-full object-cover grayscale brightness-50 contrast-125" data-alt="Grainy surveillance footage of a dark, derelict basement hallway with a distorted silhouette at the end of the corridor, high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmkvdSAw8eWY7xVUNc94IBGK8SGvtg9bsPsd_gDKQOOCW-t2GI747u5FNpepDAunNB7nMOEI46RlUr4TBBrCXYfVYaNS2SMijiFdulpFgWjq5z7rFaCq6BZG72fyk1CGHUHgNPYRHbslif1YZo5N0rkouPb9e7w_JIX11UsqtPdMJhweTxWtwWuC3bSZT1WQqvt44FTrp9f4nJhtIWXpotvg7TE982WfqQjEUWAQdQb6Z5epRIsvJrjtz-o7bXCyoBOo_CgPv3Ig"/>
+<!-- UI Overlays -->
+<div class="absolute inset-0 z-20 p-6 flex flex-col justify-between pointer-events-none">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary-container rounded-full animate-pulse"></div>
+<span class="font-label text-primary-container text-sm font-bold tracking-tighter">REC [LIVE_FEED_04]</span>
+</div>
+<div class="text-right font-label text-xs text-on-surface opacity-70">
+                        LAT: 42.3601<br/>
+                        LON: -71.0589<br/>
+                        ALT: -14.2m
+                    </div>
+</div>
+<div class="flex justify-center items-center pointer-events-auto">
+<button class="group/btn relative bg-primary-container hover:bg-on-primary-fixed-variant text-on-primary font-label px-10 py-4 transition-all active:translate-y-1">
+<span class="relative z-10 font-bold tracking-[0.2em]">EXECUTE RECOVERY</span>
+<div class="absolute inset-0 border border-white/20 scale-105 group-hover/btn:scale-110 transition-transform"></div>
+</button>
+</div>
+<div class="flex justify-between items-end">
+<div class="font-label text-xs">
+<div class="text-primary-container font-bold">TIMECODE: 04:12:09:22</div>
+<div class="opacity-50">SOURCE: SITE_B_EXTERNAL_CAM</div>
+</div>
+<div class="flex gap-1">
+<div class="h-1 w-8 bg-primary-container"></div>
+<div class="h-1 w-8 bg-surface-bright"></div>
+<div class="h-1 w-8 bg-surface-bright"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Analysis Section -->
+<section class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+<div class="lg:col-span-8">
+<div class="flex items-center gap-4 mb-6">
+<span class="bg-primary-container text-on-primary font-label text-xs font-bold px-2 py-1">CLASSIFIED</span>
+<h2 class="font-headline text-4xl font-bold tracking-tight">IT STILL LURKS</h2>
+</div>
+<div class="space-y-6">
+<div class="p-6 bg-surface-container-lowest border-l-2 border-primary-container">
+<h3 class="font-label text-xs font-black text-primary-container mb-4 tracking-[0.3em]">ANALYSIS REPORT // ID: 88-ALPHA</h3>
+<p class="font-body text-lg leading-relaxed text-on-surface/90">
+                            Subject manifests as a non-euclidean silhouette within the lower frequencies of the infrared spectrum. Footage recovered from Site-B confirms persistent spatial warping in its immediate proximity. Analysis suggests the entity does not traverse physical space, but rather displaces it. Biological impact on local personnel includes rapid-onset auditory hallucinations and cellular decay consistent with high-energy cosmic radiation exposure.
+                        </p>
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="border border-outline-variant px-3 py-1 font-label text-[10px] uppercase text-outline">Thermodynamic Anomaly</span>
+<span class="border border-outline-variant px-3 py-1 font-label text-[10px] uppercase text-outline">Class-5 Manifestation</span>
+<span class="border border-outline-variant px-3 py-1 font-label text-[10px] uppercase text-outline">Void Breach</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container p-4">
+<span class="font-label text-[10px] text-primary-container block mb-1">PROBABILITY OF BREACH</span>
+<span class="font-headline text-3xl font-bold">94.2%</span>
+</div>
+<div class="bg-surface-container p-4">
+<span class="font-label text-[10px] text-primary-container block mb-1">ATMOSPHERIC TOXICITY</span>
+<span class="font-headline text-3xl font-bold">CRITICAL</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 space-y-8">
+<div class="bg-surface-container-high p-6 border-t-4 border-primary-container">
+<h3 class="font-label text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">shield</span>
+                        CONTAINMENT STATUS
+                    </h3>
+<ul class="space-y-4">
+<li class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="font-label text-xs opacity-60 uppercase">Sanitized Zones</span>
+<span class="font-label text-xs font-bold">04/12</span>
+</li>
+<li class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="font-label text-xs opacity-60 uppercase">Signal Integrity</span>
+<span class="font-label text-xs font-bold text-primary-container">FAILING</span>
+</li>
+<li class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
+<span class="font-label text-xs opacity-60 uppercase">Personnel Lost</span>
+<span class="font-label text-xs font-bold">[REDACTED]</span>
+</li>
+</ul>
+<button class="w-full mt-6 bg-on-surface text-background font-label text-xs font-black py-3 uppercase tracking-widest hover:bg-primary-container hover:text-white transition-colors">
+                        INITIATE PURGE
+                    </button>
+</div>
+<div class="bg-surface-container-lowest p-6 border border-outline-variant/20">
+<h3 class="font-label text-xs font-bold mb-3 opacity-40">METADATA_STREAM</h3>
+<div class="font-label text-[10px] space-y-1 opacity-60 leading-tight truncate">
+                        $ query_logs --target entity_01<br/>
+                        $ result: 404_NOT_FOUND<br/>
+                        $ warning: spatial_inconsistency_detected<br/>
+                        $ re-routing signal to backup...<br/>
+                        $ done.
+                    </div>
+</div>
+</div>
+</section>
+<!-- Related Content: Peripheral Sightings -->
+<section class="py-12 border-t border-outline-variant/20">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline text-3xl font-bold italic tracking-tight">PERIPHERAL SIGHTINGS</h2>
+<p class="font-label text-[10px] text-primary-container tracking-[0.2em] uppercase mt-1">Supplementary Evidence Threads</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 border border-outline-variant hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex overflow-x-auto gap-6 pb-6 no-scrollbar">
+<!-- Clip 1 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative aspect-video bg-surface-container overflow-hidden mb-3">
+<img alt="Sightings 1" class="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" data-alt="Dark misty forest with a faint white figure blurred in the background, low light photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOyVQkjXwx8GvZ8bnRW1JnhZ-en46jrKtSZuML6YiWqUbw6d0kUjX5vMceuGK9xYywKjFeL39OfNNfSKYA8QFaGBoGyxvm-LxMPHRlcxHvJrg_r24vkEZ1S24F8GXm41J1zLnjMMzQrsdEmwvlsSIZSb2A5FVOAAzz15JEzM1QxbLX_kAXBQS6aQcflexW-lKkCJ-gKck2LikAJTYhUOWuzKTCMrzs6i0bwI_pyd4al4JCDZYbG4qHPXuowVjbnggW6gnd8xfM9A"/>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-1 font-label text-[8px] text-primary-container">LOG: #092</div>
+</div>
+<h4 class="font-label text-xs font-bold uppercase tracking-wider mb-1">The Whispering Woods</h4>
+<p class="font-body text-[10px] text-on-surface/50 leading-snug">Audio recovery complete. Frequency anomalies detected in the 14Hz range.</p>
+</div>
+<!-- Clip 2 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative aspect-video bg-surface-container overflow-hidden mb-3">
+<img alt="Sightings 2" class="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" data-alt="Long empty hospital corridor with flickering fluorescent lights and dark shadows at the far end" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4xQvpzCOCZzmtxN8_yBYqLK_u-DNIHfhaagl8cCEfFh1jCLulhjgN3ePz6WLV9qt6kuecQkEAoM6s6vBSEvh9mVQVQvWVZQahdKhIzfkzGQPVseWJJ2r0oGBetM7q0YQ4Gbc2cbMtgNPxRlL3bFva8ibAi9gUIBKeXG4M1px_-hPVDCRIJ6JgzQNsJ5HRO87wVKXn4U_L3quQWbHW7MAdC8I1jNcAT1lnH6SP7I3nh4n1hd1Gi1vXWEQ2GZ9Xa_4vIPW4RgP06w"/>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-1 font-label text-[8px] text-primary-container">LOG: #104</div>
+</div>
+<h4 class="font-label text-xs font-bold uppercase tracking-wider mb-1">Ward 7 Incident</h4>
+<p class="font-body text-[10px] text-on-surface/50 leading-snug">Multiple witnesses reported seeing the door handle rotate counter-clockwise.</p>
+</div>
+<!-- Clip 3 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative aspect-video bg-surface-container overflow-hidden mb-3">
+<img alt="Sightings 3" class="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" data-alt="High angle shot of a deserted suburban street at night under a single pale streetlight, heavy fog" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxrrfvy7SunzAfeT3Mm_M0ybP2GnanAmGF5ZcVWlR4c0D1y1QpsXvzxgq7Pkl7anmMxI0FyGD86_82IlEd8Z9dgqcRTimVC6t0CswUheqwymO_lh1VtLMoTLbVBbskVY8plcebhF08Ded2mlCvUTMzXWurXOOtxrLgedaPLmlxfhRGwLwr5oTJaDbOoZgRiGgU82xC1fO7vUnd32BZRTR6dF8014THkEE9igsze0FpwgeRvims1xTjcUhyDFXzVrViT_Fu8GZ0HQ"/>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-1 font-label text-[8px] text-primary-container">LOG: #118</div>
+</div>
+<h4 class="font-label text-xs font-bold uppercase tracking-wider mb-1">Sector 4 Surveillance</h4>
+<p class="font-body text-[10px] text-on-surface/50 leading-snug">Static interference patterns repeat every 4.2 seconds.</p>
+</div>
+<!-- Clip 4 -->
+<div class="flex-none w-72 group cursor-pointer">
+<div class="relative aspect-video bg-surface-container overflow-hidden mb-3">
+<img alt="Sightings 4" class="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" data-alt="Interior of an old attic with dust motes illuminated by a single shaft of light, eerie atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiRl9ghQ1vLlCky7w5qtUruL4qhAwGdsABCJZ7T0qHL6Xmuqj_YDXzJL94D-0MQs2ojkJE5-3cDkR_jfkekDICA6HyuYPfU-tAzcFxlZP3Xpf0qLcfGorQ-rKNPkA8HJHfbn4pFGUX5Ty64KpmW50MNBr4HxtPnssQcNJHPSm4lWUOIlq8HihGDZtCpOP-OD78j0588_ll26qCb0sy1aBHMyF8xMyphWYBq1ek56ZbmudGN2m8Jdi4Bx2GGFZSSQ2o4bq7BN-9FA"/>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-1 font-label text-[8px] text-primary-container">LOG: #142</div>
+</div>
+<h4 class="font-label text-xs font-bold uppercase tracking-wider mb-1">The Attic Recordings</h4>
+<p class="font-body text-[10px] text-on-surface/50 leading-snug">Camera battery drained from 100% to 0% in exactly twelve seconds.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 bg-[#0E0E0E] border-t border-[#4A4A4A] md:hidden">
+<div class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full opacity-50">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label text-[10px] font-bold uppercase">SOURCE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full opacity-50">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label text-[10px] font-bold uppercase">ARCHIVE</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#B22222] text-[#000000] p-2 h-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">cell_tower</span>
+<span class="font-label text-[10px] font-bold uppercase">SIGNAL</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full opacity-50">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label text-[10px] font-bold uppercase">REPORT</span>
+</div>
+</nav>
+<!-- Navigation Drawer for Desktop -->
+<aside class="hidden md:flex fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 flex-col py-6 gap-2 bg-[#131313] border-r border-[#4A4A4A] z-40">
+<div class="px-4 mb-8">
+<h3 class="text-[#B22222] font-black italic uppercase font-label text-xs tracking-widest">CLASSIFIED_VAULT</h3>
+</div>
+<a class="text-[#E2E2E2] px-4 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-label text-sm font-bold uppercase">ENCRYPTED_FILES</span>
+</a>
+<a class="text-[#E2E2E2] px-4 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label text-sm font-bold uppercase">PERSONNEL</span>
+</a>
+<a class="bg-[#B22222] text-black font-bold px-4 py-3 flex items-center gap-4" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label text-sm font-bold uppercase">GEOLOCATION</span>
+</a>
+<a class="text-[#E2E2E2] px-4 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">delete_forever</span>
+<span class="font-label text-sm font-bold uppercase">LOG_PURGE</span>
+</a>
+<div class="mt-auto">
+<a class="text-[#E2E2E2] px-4 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-sm font-bold uppercase">SYSTEM_SET</span>
+</a>
+</div>
+</aside>
+<!-- Grain Overlay -->
+<div class="fixed inset-0 pointer-events-none z-[100] opacity-[0.05] contrast-150 mix-blend-overlay">
+<div class="absolute inset-0 bg-repeat bg-[url('https://www.transparenttextures.com/patterns/p6-grain.png')]"></div>
+</div>
+</body></html>

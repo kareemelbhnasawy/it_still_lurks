@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IT STILL LURKS | ARCHIVE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@300;400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#313030",
+                        "inverse-primary": "#b52424",
+                        "surface-container-highest": "#353535",
+                        "surface-container-low": "#1b1b1b",
+                        "on-secondary-fixed-variant": "#474747",
+                        "inverse-surface": "#e2e2e2",
+                        "on-surface": "#e2e2e2",
+                        "surface": "#131313",
+                        "on-primary": "#690007",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-background": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "inverse-on-surface": "#303030",
+                        "surface-bright": "#393939",
+                        "secondary": "#c8c6c6",
+                        "outline": "#aa8986",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#b22222",
+                        "on-secondary-container": "#b9b8b8",
+                        "tertiary-container": "#5d5c5c",
+                        "on-surface-variant": "#e2beba",
+                        "surface-tint": "#ffb4ac",
+                        "primary": "#ffb4ac",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-fixed": "#ffdad6",
+                        "error-container": "#93000a",
+                        "on-secondary": "#303030",
+                        "on-error": "#690005",
+                        "outline-variant": "#5a403e",
+                        "on-tertiary-container": "#d7d5d4",
+                        "on-primary-fixed": "#410003",
+                        "surface-container": "#1f1f1f",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary": "#c8c6c5",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "tertiary-fixed": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "background": "#131313",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-primary-fixed-variant": "#92030f",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "secondary-fixed": "#e4e2e2",
+                        "surface-variant": "#353535",
+                        "on-primary-container": "#ffc8c2",
+                        "secondary-container": "#494949"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.scanline-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 100
+    }
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB_U0FUSwbU5wYAmVXIbH2zbQvA_gvOVU5MXQYHw8-l7YYf5nzEbd_EBq1_euKew2Lr_NBJmvTWADE3D_M4FJjLiUGCfHmOUlZDtu1QkcX6fxrFqlZS00z0RzJ_VO5eNbfr-810Wlh1EujVm5eCT4q8Kyrf0jiPhhoqz33AakR7eMFHEvghzt4usUyL6KzojnBnhJ8aPPAfDM-jVJ_8CVsKQDDHiZiW3Y00XaMvOreRpxTJZymq5ZNOs8zllkIMGebEOfMhsTaClQ);
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 101
+    }
+.redaction-block {
+    background-color: #e2e2e2;
+    color: transparent;
+    user-select: none
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
+<div class="scanline-overlay"></div>
+<div class="grain-overlay"></div>
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-4 h-14 bg-black/90 backdrop-blur-sm fixed top-0 z-50 border-b border-[#4A4A4A]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#B22222]" data-icon="menu">menu</span>
+<h1 class="text-xl font-bold tracking-tighter text-[#B22222] uppercase font-headline">SIGNAL ACTIVE</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center font-mono text-xs tracking-widest">
+<a class="text-[#E2E2E2] hover:text-white transition-colors" href="#">SOURCE</a>
+<a class="text-[#B22222]" href="#">ARCHIVE</a>
+<a class="text-[#E2E2E2] hover:text-white transition-colors" href="#">SIGNAL</a>
+<a class="text-[#E2E2E2] hover:text-white transition-colors" href="#">REPORT</a>
+</div>
+<span class="material-symbols-outlined text-[#B22222]" data-icon="sensors">sensors</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Header Section -->
+<section class="mb-12 border-l-4 border-primary-container pl-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<p class="font-mono text-[10px] uppercase tracking-[0.3em] text-primary mb-2">DIRECTORY: /ROOT/EXTERNAL_ASSETS/UNRESOLVED</p>
+<h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter italic">THE ARCHIVE</h2>
+</div>
+<div class="font-mono text-right text-[10px] text-outline-variant leading-tight">
+                    ACCESS_LEVEL: OMEGA<br/>
+                    LOCAL_TIME: [REDACTED]<br/>
+                    STATUS: LEAKING
+                </div>
+</div>
+</section>
+<!-- Tactical Filters -->
+<nav class="flex flex-wrap gap-px bg-[#4A4A4A] mb-12 border border-[#4A4A4A]">
+<button class="bg-primary-container text-on-primary px-8 py-3 font-mono text-xs font-bold tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="all_inclusive">all_inclusive</span> ALL_ENTRIES
+            </button>
+<button class="bg-surface text-on-surface px-8 py-3 font-mono text-xs font-bold tracking-widest hover:bg-surface-bright transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="videocam">videocam</span> FOOTAGE
+            </button>
+<button class="bg-surface text-on-surface px-8 py-3 font-mono text-xs font-bold tracking-widest hover:bg-surface-bright transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="mic">mic</span> AUDIO
+            </button>
+<button class="bg-surface text-on-surface px-8 py-3 font-mono text-xs font-bold tracking-widest hover:bg-surface-bright transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span> LOGS
+            </button>
+<button class="bg-surface text-on-surface/20 px-8 py-3 font-mono text-xs font-bold tracking-widest cursor-default flex items-center gap-2 opacity-5 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="emergency_home" style="font-variation-settings: 'FILL' 1;">emergency_home</span> CORRUPTED
+            </button>
+</nav>
+<!-- Evidence Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<article class="group bg-surface-container-lowest border-l border-outline-variant/30 hover:border-primary-container transition-all duration-300">
+<div class="relative aspect-video overflow-hidden grayscale contrast-125 brightness-75 group-hover:brightness-100 transition-all">
+<img alt="grainy night vision footage" class="w-full h-full object-cover mix-blend-screen opacity-80" data-alt="grainy black and white night vision security footage of a dark forest path with blurry unidentifiable shape in distance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAx0xtwiWePlcqNdYVhvLuqTPe5YqPf_Vkgjv-vqbkOLfo3EuAa_0O5EiBI9ffSxew-OrPm5kmEexmS8-axHZBOq8O8ghn60EdVyrgZKOi2LWzgIILWA4Im90PAb1RLEjaAKDQrB1j-I9TMgMU9BIEvIMb8YtGbAqGCrbOkoNunfiHDithckB3Ry24fGnZoekYKfU_SFXiF4OV2XuutWHTgLMpolOlNL0wbezkfdAehgomqJhwzIrol-AMpFYD93KMOsAcMhjJ3Q"/>
+<div class="absolute top-0 right-0 bg-on-surface text-background font-mono text-[10px] px-2 py-1">
+                        FILE: 001-A
+                    </div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-2xl font-bold tracking-tight">CASE FILE: <span class="redaction-block">DARK_WOODS</span></h3>
+</div>
+<div class="space-y-2 font-mono text-[10px] text-on-surface-variant">
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>DATE:</span>
+<span class="text-on-surface">12-OCT-1994</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>COORDS:</span>
+<span class="text-on-surface">45.5231° N, 122.6765° W</span>
+</div>
+<div class="flex justify-between">
+<span>THREAT:</span>
+<span class="text-primary-container font-bold">CRITICAL</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-on-surface text-background font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                        EXTRACT_DATA
+                    </button>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group bg-surface-container-lowest border-l border-outline-variant/30 hover:border-primary-container transition-all duration-300">
+<div class="relative aspect-video overflow-hidden grayscale contrast-150 brightness-50 group-hover:brightness-90 transition-all">
+<img alt="distorted monitor signal" class="w-full h-full object-cover mix-blend-screen opacity-70" data-alt="static-filled television screen showing a distorted human silhouette in a dark hallway, low quality vhs aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIZQKOuIgUYb_fBZnBmkQPGCq3mL9lT0G5ZXCEidANFGZt0rk5_q5Xgvu910k07E9DJi88ol_KGr68kyA_HB5LleQg_IDMhd-3agM6bWawTsKg5a7g810wFjJ3XzmNQm9mYk_zFNqUekckmJTcplesvE7gjeySnciLsF-IPJoyDyQqAUmrg3xx_H4kzRh7Qe-Kwp-C-tk7eRtxfWYa6Bl_icnjwDuXB9LxhMu8ojugAk_Ix49m1v19uTIZT9wWwgEmcL7JaH9yBw"/>
+<div class="absolute top-0 right-0 bg-on-surface text-background font-mono text-[10px] px-2 py-1">
+                        FILE: 042-X
+                    </div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-2xl font-bold tracking-tight">CASE FILE: <span class="redaction-block">TULSA_INCIDENT</span></h3>
+</div>
+<div class="space-y-2 font-mono text-[10px] text-on-surface-variant">
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>DATE:</span>
+<span class="text-on-surface">24-JAN-2001</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>COORDS:</span>
+<span class="text-on-surface">36.1540° N, 95.9928° W</span>
+</div>
+<div class="flex justify-between">
+<span>THREAT:</span>
+<span class="text-primary-container font-bold">TERMINAL</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-on-surface text-background font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                        EXTRACT_DATA
+                    </button>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group bg-surface-container-lowest border-l border-outline-variant/30 hover:border-primary-container transition-all duration-300">
+<div class="relative aspect-video overflow-hidden grayscale contrast-125 brightness-75 group-hover:brightness-100 transition-all">
+<img alt="foggy urban sprawl" class="w-full h-full object-cover mix-blend-screen opacity-80" data-alt="overhead view of a desolate industrial zone shrouded in thick greenish fog at night, cold fluorescent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIBIxNUbAyh4K7G8tJ59a_ySXQazeWZUvgXyeApDDYNSLsUNl5c014j0HyqshOB70SM7xH7kLeHaVyTjLi-E0XKPP9uF7EIDFtWyEO02MB-mwKUCCX1xA13YygHL1Aa5uD91trpXhQsdf94YYJXiuxJhP85bGNf0N_vuPCzilIQBcWIVWibbSf1NWiu5nnbxF_TOfrEJitKqLA9eNiAmgz0qHuVPZALCH5CdfNlLBwcrOKm9FEKbQeYiUI5zfDPmkS1nCHgpe9wA"/>
+<div class="absolute top-0 right-0 bg-on-surface text-background font-mono text-[10px] px-2 py-1">
+                        FILE: 089-B
+                    </div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-2xl font-bold tracking-tight">CASE FILE: <span class="redaction-block">SECTOR_9</span></h3>
+</div>
+<div class="space-y-2 font-mono text-[10px] text-on-surface-variant">
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>DATE:</span>
+<span class="text-on-surface">03-MAR-2018</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>COORDS:</span>
+<span class="text-on-surface">[REDACTED]</span>
+</div>
+<div class="flex justify-between">
+<span>THREAT:</span>
+<span class="text-secondary font-bold">ELEVATED</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-on-surface text-background font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                        EXTRACT_DATA
+                    </button>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="group bg-surface-container-lowest border-l border-outline-variant/30 hover:border-primary-container transition-all duration-300">
+<div class="relative aspect-video overflow-hidden grayscale contrast-125 brightness-75 group-hover:brightness-100 transition-all">
+<img alt="deep space anomaly" class="w-full h-full object-cover mix-blend-screen opacity-80" data-alt="distorted telescope capture of a void in space that appears to have physical texture, high grain, astronomical horror" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_ny9Nf9jw8JX-9mQzpgP2RJ7XT6IHDbqJSv4h8L87QIDc_2DM4jk5J8qj7ySMd5LuODQ0REXDF36i3GYonQv3dTqO2M0KQSEx_fLG1lwUGMFykrTIj1YoXvyas7L-3cD6F_9g9kNJiNB06WHm2pu1hKK1xXowjdpgAzZOAVHtFt0kBxAvoyvYt8uAtvlFJwWnvZxELJFDRj29wYqm6Z0EpWjc-N-ymcrKFOapJSRK3PRdBlJL0llBTo-esYDUi6GdhE-zCmfujA"/>
+<div class="absolute top-0 right-0 bg-on-surface text-background font-mono text-[10px] px-2 py-1">
+                        FILE: 112-Ω
+                    </div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline text-2xl font-bold tracking-tight">CASE FILE: <span class="redaction-block">VOID_SIGNAL</span></h3>
+</div>
+<div class="space-y-2 font-mono text-[10px] text-on-surface-variant">
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>DATE:</span>
+<span class="text-on-surface">11-SEP-2023</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>COORDS:</span>
+<span class="text-on-surface">LOW_ORBIT</span>
+</div>
+<div class="flex justify-between">
+<span>THREAT:</span>
+<span class="text-primary-container font-bold">EXISTENTIAL</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-on-surface text-background font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors">
+                        EXTRACT_DATA
+                    </button>
+</div>
+</article>
+<!-- Card 5 (Data Grid Row Variant) -->
+<div class="lg:col-span-2 bg-surface-container-high p-8 flex flex-col md:flex-row gap-8 border-r border-primary-container">
+<div class="w-full md:w-1/3 aspect-square bg-black border border-outline-variant/40 p-2 relative">
+<div class="w-full h-full bg-[#131313] flex items-center justify-center font-mono text-[8px] text-primary text-center uppercase p-4">
+                        ENCRYPTED_MEDIA_PREVIEW<br/>FAIL_TO_LOAD<br/>CODE: 0x000F7
+                    </div>
+<div class="absolute bottom-4 left-4 h-1 w-2/3 bg-primary-container"></div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-4 mb-2">
+<span class="bg-primary-container text-on-primary text-[8px] font-mono font-bold px-2 py-0.5">UNSTABLE</span>
+<span class="text-[10px] font-mono text-outline-variant">ID: 889-KLL</span>
+</div>
+<h3 class="font-headline text-4xl font-bold italic mb-4 uppercase">SYSTEM LOG: <span class="redaction-block">TOTAL_SILENCE</span></h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6 font-body italic">
+                            "The recording cut out at 03:14:02. Not due to power loss, but because the sound itself ceased to exist. Forensic analysis shows a perfect 0dB vacuum for twelve minutes before the screaming resumed."
+                        </p>
+</div>
+<div class="grid grid-cols-2 gap-4 font-mono text-[10px]">
+<div class="bg-surface p-2 border border-outline-variant/20">
+<p class="text-outline-variant uppercase mb-1">SOURCE</p>
+<p class="text-on-surface">DEEP_SEA_SENSOR_4</p>
+</div>
+<div class="bg-surface p-2 border border-outline-variant/20">
+<p class="text-outline-variant uppercase mb-1">INTEGRITY</p>
+<p class="text-primary-container">0.04%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tactical Scan Bar -->
+<div class="mt-24 border-t border-[#4A4A4A] pt-8">
+<div class="flex justify-between items-end mb-2 font-mono text-[10px] text-primary">
+<span>BUFFERING ARCHIVE METADATA...</span>
+<span>88% COMPLETED</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full relative">
+<div class="absolute top-0 left-0 h-full bg-primary-container w-[88%] shadow-[0_0_15px_rgba(178,34,34,0.5)]"></div>
+<!-- Glitch offset mimic -->
+<div class="absolute top-0 left-[20%] h-full bg-primary-container w-[2px] translate-x-2 opacity-50"></div>
+</div>
+</div>
+</main>
+<!-- NavigationDrawer (Fixed Left) -->
+<aside class="hidden xl:flex flex-col py-6 gap-2 fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 border-r border-[#4A4A4A] bg-[#131313] z-40">
+<div class="px-6 mb-8">
+<h3 class="text-[#B22222] font-black italic font-headline text-xl">CLASSIFIED</h3>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="text-[#E2E2E2] px-6 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 transition-all font-mono text-sm font-bold uppercase flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="lock">lock</span> ENCRYPTED_FILES
+            </a>
+<a class="text-[#E2E2E2] px-6 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 transition-all font-mono text-sm font-bold uppercase flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span> PERSONNEL
+            </a>
+<a class="text-[#E2E2E2] px-6 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 transition-all font-mono text-sm font-bold uppercase flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span> GEOLOCATION
+            </a>
+<a class="text-[#E2E2E2] px-6 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 transition-all font-mono text-sm font-bold uppercase flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="delete_forever">delete_forever</span> LOG_PURGE
+            </a>
+<a class="text-[#E2E2E2] px-6 py-3 opacity-70 hover:bg-[#393939] hover:opacity-100 transition-all font-mono text-sm font-bold uppercase flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> SYSTEM_SET
+            </a>
+</nav>
+<div class="mt-auto px-6 py-4 border-t border-outline-variant/10 font-mono text-[8px] text-outline-variant tracking-tighter uppercase">
+            ESTABLISHED: 1974<br/>
+            RECOVERED: 2024<br/>
+            STATUS: COMPROMISED
+        </div>
+</aside>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 bg-[#0E0E0E] border-t border-[#4A4A4A] md:hidden">
+<a class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full flex-1 hover:bg-[#393939]" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-mono text-[8px] font-bold uppercase mt-1">SOURCE</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#B22222] text-[#000000] p-2 h-full flex-1" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-mono text-[8px] font-bold uppercase mt-1">ARCHIVE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full flex-1 hover:bg-[#393939]" href="#">
+<span class="material-symbols-outlined" data-icon="cell_tower">cell_tower</span>
+<span class="font-mono text-[8px] font-bold uppercase mt-1">SIGNAL</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#E2E2E2] p-2 h-full flex-1 hover:bg-[#393939]" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-mono text-[8px] font-bold uppercase mt-1">REPORT</span>
+</a>
+</nav>
+</body></html>
