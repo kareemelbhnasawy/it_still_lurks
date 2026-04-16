@@ -1,9 +1,12 @@
 import { cn } from '@/utils/cn'
 import { CATEGORIES } from '@/data/mockData'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 export default function ArchiveFilterBar({ query, setQuery, category, setCategory, count }) {
+  const { high } = usePerformanceMode()
+
   return (
-    <div className="sticky top-16 md:top-20 z-30 bg-void/80 backdrop-blur-xl border-b border-white/[0.06]">
+    <div className={cn('sticky top-16 md:top-20 z-30 bg-void/80 border-b border-white/[0.06]', high && 'backdrop-blur-xl')}>
       <div className="mx-auto max-w-[1600px] px-5 md:px-10 py-5">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="relative flex-1 max-w-xl">

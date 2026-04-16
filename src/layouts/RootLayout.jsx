@@ -12,9 +12,11 @@ import TacticalScanBar from '@/components/TacticalScanBar'
 import CreepyFigurines from '@/components/CreepyFigurines'
 import PurgeAftermath from '@/components/PurgeAftermath'
 import { InfectionProvider } from '@/context/InfectionContext'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 export default function RootLayout() {
   const location = useLocation()
+  const { mode } = usePerformanceMode()
   useCreepyTitle()
 
   useEffect(() => {
@@ -22,9 +24,18 @@ export default function RootLayout() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [location.pathname])
 
+  useEffect(() => {
+    document.documentElement.dataset.performance = mode
+    return () => {
+      if (document.documentElement.dataset.performance === mode) {
+        delete document.documentElement.dataset.performance
+      }
+    }
+  }, [mode])
+
   return (
     <InfectionProvider>
-      <div className="relative min-h-dvh bg-void text-bone">
+      <div className="relative min-h-dvh bg-void text-bone" data-performance={mode}>
         <AmbientBackground />
         <Navbar />
         <div className="relative z-10 flex min-h-dvh flex-col infection-frame">

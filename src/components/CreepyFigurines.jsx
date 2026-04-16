@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useInfection } from '@/context/InfectionContext'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 // CREEPY FIGURINES — silhouettes that appear as the infection escalates.
 //
@@ -16,11 +17,12 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 export default function CreepyFigurines() {
   const { level } = useInfection()
   const reduced = useReducedMotion()
-  const presence = useUserPresence()
+  const { low, medium, high } = usePerformanceMode()
+  const presence = useUserPresence(high)
 
-  if (reduced || level < 1) return null
+  if (reduced || level < 1 || low) return null
 
-  const crawlerCount = level >= 3 ? 5 : level >= 2 ? 3 : 1
+  const crawlerCount = medium ? (level >= 3 ? 2 : 1) : level >= 3 ? 5 : level >= 2 ? 3 : 1
   const crawlers = Array.from({ length: crawlerCount })
 
   return (
@@ -30,10 +32,10 @@ export default function CreepyFigurines() {
       ))}
 
       {level >= 2 && <CornerWatcher presence={presence} level={level} />}
-      {level >= 2 && <DoorframePeeker presence={presence} />}
-      {level >= 2 && <MouseStalker presence={presence} distance={level >= 3 ? 82 : 128} />}
-      {level >= 3 && <CeilingHanger presence={presence} />}
-      {level >= 3 && <HallPasser />}
+      {!medium && level >= 2 && <DoorframePeeker presence={presence} />}
+      {!medium && level >= 2 && <MouseStalker presence={presence} distance={level >= 3 ? 82 : 128} />}
+      {!medium && level >= 3 && <CeilingHanger presence={presence} />}
+      {!medium && level >= 3 && <HallPasser />}
     </div>
   )
 }
@@ -388,7 +390,7 @@ function PasserGlyph() {
   )
 }
 
-function useUserPresence() {
+function useUserPresence(enabled = true) {
   const [presence, setPresence] = useState(() => {
     const width = typeof window === 'undefined' ? 1440 : window.innerWidth
     const height = typeof window === 'undefined' ? 900 : window.innerHeight
@@ -398,7 +400,7 @@ function useUserPresence() {
   })
 
   useEffect(() => {
-    if (typeof window === 'undefined') return undefined
+    if (typeof window === 'undefined' || !enabled) return undefined
 
     let raf = 0
     let idleTimer = 0
@@ -460,7 +462,7 @@ function useUserPresence() {
       window.clearTimeout(idleTimer)
       if (raf) window.cancelAnimationFrame(raf)
     }
-  }, [])
+  }, [enabled])
 
   return presence
 }

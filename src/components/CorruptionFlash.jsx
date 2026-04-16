@@ -1,18 +1,20 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 // Rare, intentional "signal unstable" flash. Triggers roughly every 45-90s.
 export default function CorruptionFlash() {
   const reduced = useReducedMotion()
+  const { low, medium } = usePerformanceMode()
   const [active, setActive] = useState(false)
 
   useEffect(() => {
-    if (reduced) return
+    if (reduced || low) return
     let cancelled = false
 
     const schedule = () => {
-      const delay = 45000 + Math.random() * 45000
+      const delay = (medium ? 70000 : 45000) + Math.random() * (medium ? 70000 : 45000)
       setTimeout(() => {
         if (cancelled) return
         setActive(true)
@@ -27,7 +29,7 @@ export default function CorruptionFlash() {
     return () => {
       cancelled = true
     }
-  }, [reduced])
+  }, [reduced, low, medium])
 
   return (
     <AnimatePresence>
@@ -41,7 +43,10 @@ export default function CorruptionFlash() {
           transition={{ duration: 0.62, times: [0, 0.1, 0.3, 0.5, 1] }}
           className="pointer-events-none fixed inset-0 z-[70]"
         >
-          <div className="absolute inset-0 bg-scanlines opacity-80" />
+          <div
+            className="absolute inset-0 bg-scanlines"
+            style={{ opacity: medium ? 0.45 : 0.8 }}
+          />
           <div
             className="absolute inset-0"
             style={{

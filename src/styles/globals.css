@@ -387,6 +387,11 @@ html[data-infection="3"] .infection-frame {
   filter: contrast(1.2) saturate(0.72) hue-rotate(-4deg);
   animation: breachShiver 2.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
 }
+html[data-performance="medium"] .infection-frame,
+html[data-performance="low"] .infection-frame {
+  filter: none !important;
+  animation: none !important;
+}
 @keyframes breachShiver {
   0%, 85%, 100% { transform: translate3d(0, 0, 0); }
   87% { transform: translate3d(-1px, 0.5px, 0); }

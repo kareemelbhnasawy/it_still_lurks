@@ -1,6 +1,26 @@
 import { motion } from 'framer-motion'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 export default function AmbientBackground({ variant = 'default' }) {
+  const { low, medium } = usePerformanceMode()
+
+  if (low || medium) {
+    return (
+      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-void" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(circle at 18% 14%, rgba(122,26,26,0.07) 0%, rgba(10,10,10,0) 38%), radial-gradient(circle at 78% 34%, rgba(58,69,80,0.08) 0%, rgba(10,10,10,0) 34%), radial-gradient(circle at 48% 86%, rgba(26,26,26,0.48) 0%, rgba(10,10,10,0) 36%)',
+          }}
+        />
+        <div className="absolute inset-0 bg-scanlines opacity-28" />
+        <div className="absolute inset-0 vignette" />
+      </div>
+    )
+  }
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div className="absolute inset-0 bg-void" />

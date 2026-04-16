@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useInfection } from '@/context/InfectionContext'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 // PURGE AFTERMATH — triggered the moment infection level crosses into 3.
 // One-shot 7-second sequence followed by a persistent hostile state:
@@ -20,6 +21,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 export default function PurgeAftermath() {
   const { level } = useInfection()
   const reduced = useReducedMotion()
+  const { low, medium } = usePerformanceMode()
   const [phase, setPhase] = useState(0)
   const hasStarted = useRef(false)
 
@@ -33,7 +35,7 @@ export default function PurgeAftermath() {
     if (hasStarted.current) return
     hasStarted.current = true
 
-    if (reduced) {
+    if (reduced || low) {
       setPhase(5)
       return
     }
@@ -50,7 +52,7 @@ export default function PurgeAftermath() {
       clearTimeout(t3)
       clearTimeout(t4)
     }
-  }, [level, reduced])
+  }, [level, reduced, low])
 
   if (level < 3) return null
 
@@ -78,7 +80,7 @@ export default function PurgeAftermath() {
             key="figure"
             initial={{ y: '100%', opacity: 0 }}
             animate={{
-              y: phase === 5 ? '70%' : '0%',
+              y: phase === 5 ? (medium ? '28%' : '36%') : '0%',
               opacity: phase === 5 ? 0.45 : 1,
             }}
             transition={{
@@ -87,7 +89,7 @@ export default function PurgeAftermath() {
             }}
             className="pointer-events-none fixed inset-0 z-[90] flex items-end justify-center"
           >
-            <GiantFigure breathing={phase === 3} />
+            {medium ? <LeanFigure breathing={phase === 3} /> : <GiantFigure breathing={phase === 3} />}
           </motion.div>
         )}
       </AnimatePresence>
@@ -107,10 +109,11 @@ export default function PurgeAftermath() {
             <div className="absolute inset-0 bg-scanlines opacity-80" />
 
             <motion.h2
-              initial={{ scale: 0.96, filter: 'blur(8px)' }}
+              initial={medium ? { scale: 0.98, opacity: 0.2 } : { scale: 0.96, filter: 'blur(8px)' }}
               animate={{
-                scale: [0.96, 1.02, 1, 1.04, 1],
-                filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(1.2px)', 'blur(0px)'],
+                scale: medium ? [0.98, 1.01, 1, 1.015, 1] : [0.96, 1.02, 1, 1.04, 1],
+                opacity: medium ? [0.2, 1, 1, 0.92, 1] : 1,
+                filter: medium ? 'none' : ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(1.2px)', 'blur(0px)'],
               }}
               transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
               className="relative font-display font-extrabold italic text-[clamp(3rem,14vw,12rem)] leading-[0.85] tracking-[-0.04em] text-center text-bone"
@@ -151,6 +154,91 @@ export default function PurgeAftermath() {
   )
 }
 
+function LeanFigure({ breathing }) {
+  return (
+    <motion.svg
+      width="100%"
+      height="90%"
+      viewBox="0 0 600 900"
+      preserveAspectRatio="xMidYMax meet"
+      animate={breathing ? { scale: [1, 1.01, 1], y: [0, -2, 0] } : { scale: 1, y: 0 }}
+      transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
+      style={{ opacity: 0.9 }}
+    >
+      <defs>
+        <linearGradient id="leanVeil" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(255,90,90,0.16)" />
+          <stop offset="55%" stopColor="rgba(178,34,34,0.08)" />
+          <stop offset="100%" stopColor="rgba(178,34,34,0)" />
+        </linearGradient>
+        <linearGradient id="leanBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#7a7775" />
+          <stop offset="48%" stopColor="#575250" />
+          <stop offset="100%" stopColor="#211d1d" />
+        </linearGradient>
+        <linearGradient id="leanEdge" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="rgba(255,220,220,0.34)" />
+          <stop offset="100%" stopColor="rgba(255,120,120,0.04)" />
+        </linearGradient>
+      </defs>
+
+      <path
+        d="M124 900 Q168 690 208 560 Q236 470 264 396 Q284 340 296 256 Q302 218 296 178 Q350 198 388 248 Q430 306 448 422 Q464 526 466 650 Q468 782 490 900 Z"
+        fill="url(#leanVeil)"
+      />
+
+      <path
+        d="M301 160 Q338 162 370 190 Q405 224 426 302 Q446 382 450 526 Q452 690 430 900 L194 900 Q176 720 176 590 Q176 492 188 408 Q204 292 238 224 Q264 172 301 160 Z"
+        fill="url(#leanBody)"
+      />
+      <path
+        d="M301 160 Q338 162 370 190 Q405 224 426 302 Q446 382 450 526 Q452 690 430 900"
+        fill="none"
+        stroke="url(#leanEdge)"
+        strokeWidth="4"
+      />
+      <path
+        d="M300 160 Q250 182 220 248 Q190 316 184 452"
+        fill="none"
+        stroke="rgba(255,240,240,0.18)"
+        strokeWidth="3"
+      />
+
+      <path
+        d="M286 102 Q302 74 326 80 Q346 84 354 112 Q366 150 358 184 Q350 212 328 222 Q306 232 286 220 Q266 206 262 176 Q256 132 286 102 Z"
+        fill="#817b79"
+      />
+      <path
+        d="M296 116 Q310 104 328 108 Q342 112 346 132 Q352 160 348 184 Q344 204 330 214 Q316 224 300 218 Q286 212 282 192 Q276 162 282 138 Q286 124 296 116 Z"
+        fill="#161112"
+      />
+      <path d="M294 103 Q308 96 318 98" stroke="rgba(255,240,240,0.26)" strokeWidth="3" strokeLinecap="round" />
+
+      <path
+        d="M232 274 Q198 390 198 580 Q198 718 212 838"
+        stroke="rgba(92,88,86,0.94)"
+        strokeWidth="28"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <path
+        d="M396 264 Q430 380 428 556 Q426 704 412 832"
+        stroke="rgba(92,88,86,0.88)"
+        strokeWidth="24"
+        fill="none"
+        strokeLinecap="round"
+      />
+
+      <ellipse cx="303" cy="150" rx="7" ry="10" fill="#f4f1ee" fillOpacity="0.92" transform="rotate(-8 303 150)" />
+      <ellipse cx="330" cy="152" rx="5" ry="8" fill="#f4f1ee" fillOpacity="0.76" transform="rotate(-4 330 152)" />
+      <ellipse cx="303" cy="150" rx="14" ry="18" fill="rgba(255,80,80,0.16)" transform="rotate(-8 303 150)" />
+      <ellipse cx="330" cy="152" rx="11" ry="14" fill="rgba(255,80,80,0.12)" transform="rotate(-4 330 152)" />
+
+      <path d="M294 186 Q312 192 327 184" stroke="rgba(255,120,120,0.2)" strokeWidth="2" strokeLinecap="round" />
+    </motion.svg>
+  )
+}
+
 function GiantFigure({ breathing }) {
   return (
     <motion.svg
@@ -164,7 +252,7 @@ function GiantFigure({ breathing }) {
           : { scale: 1, y: 0 }
       }
       transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
-      style={{ filter: 'drop-shadow(0 0 120px rgba(255, 100, 100, 1)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.5))' }}
+      style={{ filter: 'drop-shadow(0 0 56px rgba(255, 90, 90, 0.7)) drop-shadow(0 0 28px rgba(255, 255, 255, 0.3))' }}
     >
       <defs>
         <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
@@ -188,25 +276,25 @@ function GiantFigure({ breathing }) {
           <stop offset="1" stopColor="#ff6666" stopOpacity="0.5" />
         </linearGradient>
         <filter id="figureGlow">
-          <feDropShadow dx="0" dy="0" stdDeviation="25" floodColor="#ff4444" floodOpacity="1" />
+          <feDropShadow dx="0" dy="0" stdDeviation="12" floodColor="#ff4444" floodOpacity="0.85" />
         </filter>
         <filter id="bodyEdge">
-          <feDropShadow dx="0" dy="0" stdDeviation="15" floodColor="#ffffff" floodOpacity="0.8" />
-          <feDropShadow dx="0" dy="0" stdDeviation="30" floodColor="#ff2222" floodOpacity="1" />
+          <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#ffffff" floodOpacity="0.65" />
+          <feDropShadow dx="0" dy="0" stdDeviation="14" floodColor="#ff2222" floodOpacity="0.78" />
         </filter>
         <filter id="intenseGlow">
-          <feDropShadow dx="0" dy="0" stdDeviation="40" floodColor="#ffffff" floodOpacity="1" />
-          <feDropShadow dx="0" dy="0" stdDeviation="60" floodColor="#ff0000" floodOpacity="1" />
+          <feDropShadow dx="0" dy="0" stdDeviation="14" floodColor="#ffffff" floodOpacity="0.95" />
+          <feDropShadow dx="0" dy="0" stdDeviation="22" floodColor="#ff0000" floodOpacity="0.82" />
         </filter>
         <filter id="megaGlow">
-          <feDropShadow dx="0" dy="0" stdDeviation="50" floodColor="#ffffff" floodOpacity="0.9" />
-          <feDropShadow dx="0" dy="0" stdDeviation="80" floodColor="#ff4444" floodOpacity="1" />
+          <feDropShadow dx="0" dy="0" stdDeviation="18" floodColor="#ffffff" floodOpacity="0.5" />
+          <feDropShadow dx="0" dy="0" stdDeviation="30" floodColor="#ff4444" floodOpacity="0.68" />
         </filter>
       </defs>
 
       {/* MASSIVE background glow aura - makes the whole figure pop */}
-      <ellipse cx="300" cy="400" rx="280" ry="450" fill="rgba(255,100,100,0.15)" filter="url(#megaGlow)" />
-      <ellipse cx="300" cy="450" rx="250" ry="400" fill="none" stroke="#ff6666" strokeWidth="4" strokeOpacity="0.6" filter="url(#intenseGlow)" />
+      <ellipse cx="300" cy="400" rx="280" ry="450" fill="rgba(255,100,100,0.09)" filter="url(#megaGlow)" />
+      <ellipse cx="300" cy="450" rx="250" ry="400" fill="none" stroke="#ff6666" strokeWidth="4" strokeOpacity="0.42" filter="url(#intenseGlow)" />
 
       {/* outer bright outline for visibility */}
       <path
@@ -259,8 +347,8 @@ function GiantFigure({ breathing }) {
       <circle cx="278" cy="158" r="45" fill="url(#eyeGlow)" filter="url(#intenseGlow)" />
       <circle cx="322" cy="158" r="45" fill="url(#eyeGlow)" filter="url(#intenseGlow)" />
       {/* bright inner pupils - MAXIMUM GLOW */}
-      <circle cx="278" cy="158" r="18" fill="#ffffff" style={{ filter: 'drop-shadow(0 0 30px #ffffff) drop-shadow(0 0 50px #ffffff) drop-shadow(0 0 70px #ff4444)' }} />
-      <circle cx="322" cy="158" r="18" fill="#ffffff" style={{ filter: 'drop-shadow(0 0 30px #ffffff) drop-shadow(0 0 50px #ffffff) drop-shadow(0 0 70px #ff4444)' }} />
+      <circle cx="278" cy="158" r="18" fill="#ffffff" style={{ filter: 'drop-shadow(0 0 12px #ffffff) drop-shadow(0 0 18px #ff4444)' }} />
+      <circle cx="322" cy="158" r="18" fill="#ffffff" style={{ filter: 'drop-shadow(0 0 12px #ffffff) drop-shadow(0 0 18px #ff4444)' }} />
     </motion.svg>
   )
 }

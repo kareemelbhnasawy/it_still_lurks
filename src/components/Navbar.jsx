@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSystemClock } from '@/hooks/useSystemClock'
 import { useInfection } from '@/context/InfectionContext'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 import MobileMenu from './MobileMenu'
 import { cn } from '@/utils/cn'
 import { resolveSignalAction, resolveSignalNav } from '@/utils/navSignals'
@@ -12,6 +13,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { label, now } = useSystemClock()
   const { level } = useInfection()
+  const { high } = usePerformanceMode()
   const location = useLocation()
   const navItems = resolveSignalNav(level, now.getUTCSeconds())
   const actionLabel = resolveSignalAction(level, now.getUTCSeconds())
@@ -36,7 +38,7 @@ export default function Navbar() {
         className={cn(
           'fixed top-0 inset-x-0 z-50 transition-colors duration-500',
           scrolled
-            ? 'bg-void/75 backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.05]'
+            ? cn('bg-void/75 border-b border-white/[0.05]', high && 'backdrop-blur-xl backdrop-saturate-150')
             : 'bg-transparent'
         )}
       >

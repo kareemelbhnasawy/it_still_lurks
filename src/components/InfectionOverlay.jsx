@@ -1,9 +1,11 @@
 import { useInfection } from '@/context/InfectionContext'
+import { usePerformanceMode } from '@/hooks/usePerformanceMode'
 
 // Fixed atmospheric layer — vignette + scanlines that intensify with infection level.
 // All effects are compositor-cheap (opacity + static filter); no JS per-frame.
 export default function InfectionOverlay() {
   const { level } = useInfection()
+  const { low, medium } = usePerformanceMode()
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[65]">
@@ -20,12 +22,12 @@ export default function InfectionOverlay() {
       />
 
       {/* chromatic aberration bar — level 2+ rolls a horizontal tear slowly */}
-      {level >= 2 && (
+      {level >= 2 && !medium && !low && (
         <div className="absolute inset-0 infection-tear" />
       )}
 
       {/* level-3 red wash — full breach */}
-      {level >= 3 && (
+      {level >= 3 && !low && (
         <div className="absolute inset-0 infection-breach" />
       )}
     </div>
